@@ -1,5 +1,5 @@
 TARGET = minishell
-SRC = main.c ./Parser/*.c
+SRC = main.c ./Parser/*.c ./Shell/*.c
 HEADER = -I ./Header/
 FLAG = -Wall -Werror -Wextra
 LIB = -L./Lib -lft

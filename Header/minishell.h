@@ -7,4 +7,7 @@
 
 #include <sys/wait.h>
 
+int redirection(char *exec, char *envp[]);
+int piping(char *command, char *envp[]);
+
 #endif

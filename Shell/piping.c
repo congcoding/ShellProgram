@@ -1,33 +1,37 @@
-#include "lib.h"
+#include "minishell.h"
 
-int piping()
+int piping(char *command, char *envp[])
 {
+	//| split
+	char **execs = command_parser(command);
 	int fd[2];
+	int fd_in = 0;
 	int pid;
-	char buffer[30];
-	char *argv[] = ft_split("echo -n \"test\"", ' ');
 
-	pipe(fd);
-	pid = fork();
-
-	if (pid == 0)
+	if (ft_strslen(execs) == 1)
 	{
-		close(fd[1]);
-		if(fd[0] != 0) {
-			//duplicate pipe in to string, so alread read
-			dup2(fd[0], 0);
-			close(fd[0]);
-		}
-		execl("/bin/export", "export", "b=5", NULL);
+		redirection(execs[0], envp);
+		return 1;
 	}
-	else //parent = shell
+	while (*execs)
 	{
-		close(fd[0]);
-		if (fd[1] != 1) {
-			//duplicate pipe out to stdout
-			dup2(fd[1], 1);
-			close(fd[1]);
+		pipe(fd);
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(fd_in, 0);
+			if (*(execs + 1))
+				dup2(fd[1], 1);
+			close(fd[0]);
+			redirection(*execs, envp);
+			exit(0);
 		}
-		execl("/bin/export", "export", "a=5", NULL);
+		else
+		{
+			wait(NULL);
+			close(fd[1]);
+			fd_in = fd[0];
+			execs++;
+		}
 	}
 }

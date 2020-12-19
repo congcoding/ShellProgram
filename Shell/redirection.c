@@ -1,12 +1,25 @@
-#include "lib.h"
+#include "minishell.h"
 
-int redirection ()
+int redirection(char *exec, char *envp[])
 {
-	int in_fd = open("./in.txt", O_RDONLY);
-	int out_fd = open("./out.txt", O_WRONLY);
+	char **argv = exec_parser(exec);
+	int out_fd;
+	int in_fd;
 
-	dup2(in_fd, 0);
-	dup2(out_fd ,1);
+	if (!ft_strcmp(argv[2], "<"))
+	{
+		in_fd = open("./main.c", O_RDONLY);
+		dup2(in_fd, 0);
+	}
 
-	execl("/bin/grep", "grep", "1", NULL);
+	if (!ft_strcmp(argv[ft_strslen(argv) - 2], ">"))
+	{
+		out_fd = open("./out.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+		dup2(out_fd, 1);
+	}
+	
+	execl("/bin/grep", "grep", ft_split(exec, ' ')[1], NULL);
+	//execve("/bin/grep", ft_split(exec, ' '), envp);
+	close(in_fd);
+	close(out_fd);
 }
