@@ -2,7 +2,7 @@ TARGET = minishell
 SRC = main.c ./Parser/*.c ./Shell/*.c
 HEADER = -I ./Header/
 FLAG = -Wall -Werror -Wextra
-LIB = -L./Lib -lft
+LIB = -L./Env -lenv -L./Lib -lft
 
 all : $(TARGET)
 
