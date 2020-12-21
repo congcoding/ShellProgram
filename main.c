@@ -3,16 +3,14 @@
 int main(int argc, char *argv[], char *envp[])
 {
 	g_envp = init_envp(envp);
-	printf("%s\n", get_env(g_envp, "PWD"));
-	cd("./Env");
-	printf("%s\n", get_env(g_envp, "PWD"));
-	//; split
-	/*
-	char **commands = input_parser(str);
-	while (*commands)
+
+	char str[] = "cd XX";
+
+	char **input = input_parser(str);
+	while (*input)
 	{
-		piping(*commands, envp);
-		commands++;
+		piping(*input);
+		input++;
 	}
-	*/
+	
 }

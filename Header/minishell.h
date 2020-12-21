@@ -7,10 +7,12 @@
 #include "env.h"
 
 #include <sys/wait.h>
+#include <errno.h>
+#include <string.h>
 
 char	**g_envp;
-int		redirection(char *exec, char *envp[]);
-int		piping(char *command, char *envp[]);
+int		redirection(char *exec);
+int		piping(char *command);
 
 int		cd(char *dir);
 

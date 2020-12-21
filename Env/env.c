@@ -18,7 +18,7 @@ static char **key_value_parse(char *env_string)
 				exit(1); // errorno process;
 		}
 	}
-	key_value[3] = NULL;
+	key_value[2] = NULL;
 	return (key_value);
 }
 
@@ -62,17 +62,18 @@ char *get_env(char *envp[], char *key)
 	return (NULL);
 }
 
-void	set_env(char *envp[], char *env_string)
+int		set_env(char *envp[], char *env_string)
 {
 	int		i;
 	char	**key_value;
 
 	key_value = key_value_parse(env_string);
 	while (*envp)
-	{
+	{		
 		i = -1;
 		while (++i < ft_strlen(*envp))
 		{
+			
 			if ((*envp)[i] == '=')
 			{
 				if (!ft_strncmp(*envp, key_value[0], i - 1))
@@ -86,4 +87,23 @@ void	set_env(char *envp[], char *env_string)
 		envp++;
 	}
 	ft_double_free(key_value);
+}
+
+int		add_env(char ***envp, char *env_string)
+{
+	char	**new_envp;
+	int		i;
+	int		len;
+
+	len = ft_strslen(*envp);
+	if ((new_envp = malloc(sizeof(char *) * (len + 2))))
+		return (ERROR); // errno process
+	i = -1;
+	while (++i < len)
+	{
+		new_envp[i] = ft_strdup((*envp)[i]);
+	}
+	new_envp[i] = ft_strdup(env_string);
+	new_envp[i + 1] = NULL;
+	return (SUCCESS);
 }
