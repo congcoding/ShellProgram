@@ -12,5 +12,6 @@ char **command_parser(char *command)
 
 char **exec_parser(char *exec)
 {
+	//have to get Redirection & clean it
 	return (ft_split(exec, ' '));
 }

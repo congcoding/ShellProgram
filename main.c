@@ -2,7 +2,7 @@
 
 int main(int argc, char *arg[], char *envp[])
 {
-	char str[] = "grep ma < main.c | grep main > out.txt";
+	char str[] = "echo one > two | echo three";
 
 	//; split
 	char **commands = input_parser(str);
@@ -11,5 +11,4 @@ int main(int argc, char *arg[], char *envp[])
 		piping(*commands, envp);
 		commands++;
 	}
-
 }

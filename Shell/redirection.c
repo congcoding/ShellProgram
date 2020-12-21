@@ -18,8 +18,7 @@ int redirection(char *exec, char *envp[])
 		dup2(out_fd, 1);
 	}
 	
-	execl("/bin/grep", "grep", ft_split(exec, ' ')[1], NULL);
-	//execve("/bin/grep", ft_split(exec, ' '), envp);
+	execve("./Echo/echo", ft_split(exec, ' '), envp);
 	close(in_fd);
 	close(out_fd);
 }

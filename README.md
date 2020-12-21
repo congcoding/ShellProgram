@@ -31,6 +31,40 @@ Must check pipe in shell program below.
 1. Child process get only stdout in parent process, so redirection is not duplicated
 2. pipe is one side communitate default, so one side should close.
 
+### Multi piping line
+
+```cpp
+int piping(char *cmds, char *envp[])
+{
+	int fd[2];
+	int fd_in = 0;
+	int pid;
+
+	while (*cmds)
+	{
+		pipe(fd);
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(fd_in, 0);
+			if (*(cmds + 1))
+				dup2(fd[1], 1);
+			close(fd[0]);
+			execve(*cmds, NULL, envp);
+			exit(0);
+		}
+		else
+		{
+			wait(NULL);
+			close(fd[1]);
+			//input piping sequencly
+			fd_in = fd[0];
+			cmds++;
+		}
+	}
+}
+```
+
 ## Redirection
 
 Redirection changes process output from stdin/stdout to other file descriptor. Must remember it is not arguments, only in/out process.
