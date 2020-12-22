@@ -18,11 +18,10 @@ int redirection(char *exec)
 		dup2(out_fd, 1);
 	}
 	*/
-
 	if (!ft_strcmp(argv[0], "cd"))
 		cd(argv[1]);
 	if (!ft_strcmp(argv[0], "echo"))
 		execve("./Echo/echo", argv, g_envp);
-	close(in_fd);
-	close(out_fd);
+	//close(in_fd);
+	//close(out_fd);
 }

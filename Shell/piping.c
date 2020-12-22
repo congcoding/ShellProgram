@@ -25,7 +25,7 @@ int piping(char *command)
 				dup2(fd[1], 1);
 			close(fd[0]);
 			redirection(*execs);
-			exit(0);
+			exit(1);
 		}
 		else
 		{
