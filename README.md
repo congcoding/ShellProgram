@@ -72,3 +72,34 @@ Redirection changes process output from stdin/stdout to other file descriptor. M
 Must check redirection in shell program below.
 
 1. Redirection is preferred to Pipe. So redirection is worked after piping descriptor setted.
+
+## Quotes
+
+Quote doesn't use for distinguishing string or number. `'123'`, `"123"`, `123` are same string. Quote is used for below.
+
+1. Make one argv with space char.
+2. Use enter in argv.
+3. Emphasize string.
+
+### Special Charactor 
+
+- `$` : Get variable.
+- ``` : backtick
+- `!` : history operand
+
+We use `\`, escape this contents;
+
+### No quote
+
+When no quote, all charactor are escaped like below.
+```sh
+$ echo \a\b\c\d
+$ adcd
+
+$ echo \\ta ## \is work \t => tab
+$	a
+```
+
+### Double quotes(") / Single quotes(')
+
+Special character is interpreted in Double quotes, but single is not, ever no escapce.

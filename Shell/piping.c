@@ -12,7 +12,7 @@ int piping(char *command)
 	if (ft_strslen(execs) == 1)
 	{
 		redirection(execs[0]);
-		return 1;
+		return 0;
 	}
 	while (*execs)
 	{
@@ -24,8 +24,8 @@ int piping(char *command)
 			if (*(execs + 1))
 				dup2(fd[1], 1);
 			close(fd[0]);
-			if (redirection(*execs) == ERROR)
-				exit(errno);
+			redirection(*execs);
+			exit(0);
 		}
 		else
 		{

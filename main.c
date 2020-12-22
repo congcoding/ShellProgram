@@ -4,7 +4,7 @@ int main(int argc, char *argv[], char *envp[])
 {
 	g_envp = init_envp(envp);
 
-	char str[] = "cd XX";
+	char str[] = "cd XX | cd YY";
 
 	char **input = input_parser(str);
 	while (*input)
@@ -12,5 +12,4 @@ int main(int argc, char *argv[], char *envp[])
 		piping(*input);
 		input++;
 	}
-	
 }

@@ -6,9 +6,9 @@ int cd(char *dir)
 
 	ft_strcpy(pwd, "PWD=");
 	if (chdir(dir))
-		return ERROR; //errno process
+		return FAIL;
 	if (!getcwd(pwd + 4, 255))
-		exit(1); //errno process
+		return FAIL;
 	set_env(g_envp, pwd);
 	return SUCCESS;
 }
