@@ -3,7 +3,7 @@ SRC = *.c
 OBJ = *.o
 HEADER = -I ../Header
 FLAG = -Wall -Werror -Wextra
-LIB = -L./Lib -lft
+LIB = -L../Lib -lft
 
 all : $(TARGET)
 

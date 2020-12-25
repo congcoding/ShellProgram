@@ -21,7 +21,13 @@ int redirection(char *exec)
 	if (!ft_strcmp(argv[0], "cd"))
 		cd(argv[1]);
 	if (!ft_strcmp(argv[0], "echo"))
-		execve("./Echo/echo", argv, g_envp);
+		echo(ft_strslen(argv), argv, g_envp);
+	if (!ft_strcmp(argv[0], "env"))
+		env(ft_strslen(argv), argv, g_envp);
+	if (!ft_strcmp(argv[0], "pwd"))
+		pwd(ft_strslen(argv), argv, g_envp);
+	if (!ft_strcmp(argv[0], "export"))
+		export(argv);
 	//close(in_fd);
 	//close(out_fd);
 }

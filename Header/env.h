@@ -6,5 +6,6 @@
 char	**init_envp(char *old_envp[]);
 char	*get_env(char *envp[], char *key);
 int		set_env(char *envp[], char *env_string);
+int		add_env(char ***envp, char *env_string);
 
 #endif

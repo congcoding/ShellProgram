@@ -2,14 +2,19 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
+	char	str[255];
+	char	**input;
+	int		i;
+
+	sig_int();
 	g_envp = init_envp(envp);
-
-	char str[] = "cd Env";
-
-	char **input = input_parser(str);
-	while (*input)
+	while (TRUE)
 	{
-		piping(*input);
-		input++;
+		prompt(str);
+		input = input_parser(str);
+		i = -1;
+		while (input[++i])
+			piping(input[i]);
+		ft_double_free(input);
 	}
 }
