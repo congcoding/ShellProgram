@@ -2,9 +2,10 @@
 
 int redirection(char *exec)
 {
-	char **argv = exec_parser(exec);
+	char **argv = parser(exec, '>');
 	int out_fd;
 	int in_fd;
+	int i = -1;
 	/*
 	if (!ft_strcmp(argv[2], "<"))
 	{

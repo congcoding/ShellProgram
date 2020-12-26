@@ -3,7 +3,7 @@
 int piping(char *command)
 {
 	//| split
-	char **execs = command_parser(command);
+	char **execs = parser(command, '|');
 	int fd[2];
 	int fd_in = 0;
 	int pid;
