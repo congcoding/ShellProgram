@@ -26,6 +26,7 @@ static char *ft_strdup_start_end(char const *src, int start, int end)
         return (0);
     while (++i < (end - start))
         *(dest + i) = *(src + start + i);
+    *(dest + i) = 0;
     return (dest);
 }
 

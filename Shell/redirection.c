@@ -1,11 +1,48 @@
 #include "minishell.h"
 
+int red_parsing(char *exec, int fd[2])
+{
+	int		quote[2];
+	int		is_slash;
+	int		i;
+
+	is_slash = FALSE;
+	i = -1;
+	while (exec[++i])
+	{
+		if (exec[i] == '\\')
+		{
+			is_slash = !is_slash;
+			continue;
+		}
+		if (exec[i] == '\'' && !quote[1])
+		{
+			if (!is_slash && i != 0)
+				;
+			quote[0] = !quote[0];
+		}
+		if (exec[i] == '\"'&& !quote[0] && exec[i - 1] != '\\')
+		{
+			if (!is_slash && i != 0)
+				;
+			quote[1] = !quote[1];
+		}
+		is_slash = FALSE;
+	}
+	
+}
+
 int redirection(char *exec)
 {
-	char **argv = parser(exec, '>');
-	int out_fd;
-	int in_fd;
-	int i = -1;
+	int fd[2];
+	int i;
+	i = -1;
+	ft_write_n(1, exec);
+	//red_parsing(exec, fd);
+	/*
+	while (argv[++i])
+		ft_write_n(1, argv[i]);
+	*/
 	/*
 	if (!ft_strcmp(argv[2], "<"))
 	{
@@ -19,6 +56,7 @@ int redirection(char *exec)
 		dup2(out_fd, 1);
 	}
 	*/
+	/*
 	if (!ft_strcmp(argv[0], "cd"))
 		cd(argv[1]);
 	if (!ft_strcmp(argv[0], "echo"))
@@ -29,6 +67,7 @@ int redirection(char *exec)
 		pwd(ft_strslen(argv), argv, g_envp);
 	if (!ft_strcmp(argv[0], "export"))
 		export(argv);
+	*/
 	//close(in_fd);
 	//close(out_fd);
 }

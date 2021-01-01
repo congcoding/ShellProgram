@@ -26,6 +26,6 @@ char	*ft_stredup(char *src, int start, int end)
 	j = -1;
 	while (++i < end)
 		dest[++j] = src[i];
-	dest[j] = 0;
+	dest[++j] = 0;
 	return (dest);
 }
