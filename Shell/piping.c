@@ -8,11 +8,7 @@ int piping(char *command)
 	int pid;
 	int state;
 	int	i;
-	/*
-	i = -1;
-	while (execs[++i])
-		ft_write_n(1, execs[i]);
-	*/
+	
 	if (ft_strslen(execs) == 1)
 	{
 		redirection(execs[0]);

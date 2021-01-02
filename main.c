@@ -10,15 +10,12 @@ int main(int argc, char *argv[], char *envp[])
 	sig_int();
 	g_envp = init_envp(envp);
 	while (TRUE)
-	{
-		
+	{	
 		prompt(str);
 		input = parser(str, ';');
 		i = -1;
 		while (input[++i])
-			;
-			//ft_write_n(1, input[i]);
-			//piping(input[i]);
+			piping(input[i]);;
 		ft_double_free(input);
 	}
 }

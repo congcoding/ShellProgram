@@ -1,6 +1,6 @@
 #include "parser.h"
 
-static void arr_init(int *arr, int len, int var)
+static void arr_init(void *arr, int len, int var)
 {
 	int i;
 
@@ -22,7 +22,6 @@ char		**parsing(char *str, int *cut, int len)
 	{
 		temp = ft_stredup(str, cut[i], cut[i + 1]);
 		strs[i] = ft_strtrim(temp, " ");
-		printf("%d/%d/%s->%s\n", cut[i], cut[i + 1], temp, strs[i]);
 		cut[i + 1]++;
 		free(temp);
 	}
@@ -66,11 +65,16 @@ char 		**parser(char *raw, char c)
 			quote[1] = !quote[1];
 		}
 		if (str[i] == c && !quote[0] && !quote[1] && !is_slash)
-		{
 			cut[++j] = i;
-		}
 		is_slash = FALSE;
 	}
 	cut[++j] = i;
 	return parsing(str, cut, j);
+}
+
+int argv_process(char **argv)
+{
+	char	new[255];
+
+	arr_init(new, 255, 0);
 }

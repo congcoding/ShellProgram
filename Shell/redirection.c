@@ -1,50 +1,71 @@
 #include "minishell.h"
 
-int red_parsing(char *exec, int fd[2])
+static void arr_init(int *arr, int len, int var)
+{
+	int i;
+
+	i = -1;
+	while (++i < len)
+		arr[i] = var;
+}
+
+int out_process(char **argv, int i)
+{
+	while (argv[0][++i])
+	{
+		
+	}
+}
+
+int red_check(char **argv)
 {
 	int		quote[2];
 	int		is_slash;
 	int		i;
 
+	arr_init(quote, 2, 0);
 	is_slash = FALSE;
 	i = -1;
-	while (exec[++i])
+	while (argv[0][++i])
 	{
-		if (exec[i] == '\\')
+		if (argv[0][i] == '\\')
 		{
 			is_slash = !is_slash;
 			continue;
 		}
-		if (exec[i] == '\'' && !quote[1])
+		if (argv[0][i] == '\'' && !quote[1])
 		{
 			if (!is_slash && i != 0)
 				;
 			quote[0] = !quote[0];
 		}
-		if (exec[i] == '\"'&& !quote[0] && exec[i - 1] != '\\')
+		if (argv[0][i] == '\"'&& !quote[0] && argv[0][i - 1] != '\\')
 		{
 			if (!is_slash && i != 0)
 				;
 			quote[1] = !quote[1];
 		}
+		if (argv[0][i] == '>' && !quote[0] && !quote[1] && !is_slash)
+			out_process(argv, i);
+		if (argv[0][i] == '<' && !quote[0] && !quote[1] && !is_slash)
+			in_process();
 		is_slash = FALSE;
 	}
-	
+
 }
 
 int redirection(char *exec)
 {
-	int fd[2];
+	char **argv;
 	int i;
+	
 	i = -1;
-	ft_write_n(1, exec);
-	//red_parsing(exec, fd);
-	/*
+	argv = parser(exec, ' ');
 	while (argv[++i])
-		ft_write_n(1, argv[i]);
-	*/
+		red_check(&(argv[i]));
+	ft_double_free(argv);
 	/*
-	if (!ft_strcmp(argv[2], "<"))
+	if (!ft_argv[0]cmp(argv[2], "<"))
 	{
 		in_fd = open("./main.c", O_RDONLY);
 		dup2(in_fd, 0);

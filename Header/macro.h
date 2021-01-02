@@ -7,4 +7,7 @@
 # define TRUE 1
 # define FALSE 0
 
+# define IN 300
+# define OUT 500
+
 #endif 
