@@ -1,8 +1,16 @@
 TARGET = minishell
-SRC = main.c ./Parser/*.c ./Shell/*.c ./Cd/*.c ./Echo/*.c ./Export/*.c ./Env/*.c ./Pwd/*.c
 HEADER = -I ./Header/
+SRC = ./main.c	\
+		./srcs/Argv/*.c	\
+		./srcs/builtin/*/*.c \
+		./srcs/Parser/*.c \
+		./srcs/Shell/*.c \
+		./srcs/external/Echo/echo.c \
+		./srcs/external/Env/env.c \
+		./srcs/external/Pwd/pwd.c
 FLAG = -Wall -Werror -Wextra
-LIB = -L./Envlib -lenv -L./Lib -lft
+LIB = -L./srcs/library/Envlib -lenv \
+		-L./srcs/library/Lib -lft
 
 all : $(TARGET)
 

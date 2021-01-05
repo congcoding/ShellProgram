@@ -4,7 +4,6 @@ int main(int argc, char *argv[], char *envp[])
 {
 	char	str[255];
 	char	**input;
-	char	**pipe;
 	int		i;
 
 	sig_int();
@@ -12,14 +11,11 @@ int main(int argc, char *argv[], char *envp[])
 	while (TRUE)
 	{	
 		prompt(str);
-		parsing(str);
-		/*
-		input = parser(str, ';');
+		pre_parsing(str, &input);
 		i = -1;
 		while (input[++i])
 			piping(input[i]);;
 		ft_double_free(input);
-		*/
 	}
 	ft_double_free(g_envp);
 }

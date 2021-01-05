@@ -7,7 +7,7 @@ int export(char *argv[])
 	i = 0;
 	while (argv[++i])
 	{
-		if (set_env(g_envp, argv[i]) == FAIL)
+		if (set_env(g_envp, argv[i]) == FALSE)
 			add_env(&g_envp, argv[i]);
 	}
 }

@@ -119,7 +119,7 @@ char **cutting(char *str, int *cut, int len)
 		cut[i + 1]++;
 		free(temp);
 	}
-	strs[++i] = NULL;
+	strs[i] = NULL;
 	return (strs);
 }
 
@@ -142,7 +142,27 @@ char **seperator(char *line, char c)
 	return cutting(line, cut, j);
 }
 
-int parsing(char *line)
+char **sep_space(char *line)
+{
+	int	i;
+	int	j;
+	int	cut[256];
+
+	i = -1;
+	j = -1;
+	arr_init(cut, 255, -1);
+	cut[++j] = 0;
+	while (line[++i])
+	{
+		//printf("%d %d %d %d\n", line[i] == ' ', quotes(line, i) == 0, i != 0, line[i - 1] != '\\');
+		if (line[i] == ' ' && quotes(line, i) == 0 && i != 0 && line[i - 1] != '\\')
+			cut[++j] = i;
+	}
+	cut[++j] = i;
+	return cutting(line, cut, j);
+}
+
+int pre_parsing(char *line, char ***input)
 {
 	//get_next_line(0, &line); //TODO : gnl error fixing
 	/* open quote check */
@@ -151,8 +171,9 @@ int parsing(char *line)
 	
 	/* spacing before & after ;<>| */
 	line = space_line(line);
+	*input = seperator(line, ';');
 	
-	char **par = seperator(line, ';');
+	//ft_single_free(line);
 }
 
 

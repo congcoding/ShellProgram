@@ -7,6 +7,7 @@
 #include "env.h"
 
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <string.h>
 #include <signal.h>
@@ -14,7 +15,7 @@
 int			g_last_ret;
 char		**g_envp;
 int			prompt(char *str);
-int			redirection(char *exec);
+int			redirection(char **argv, int fd[2]);
 int			piping(char *command);
 void		sig_int();
 
@@ -25,8 +26,7 @@ int			echo(int argc, char *argv[], char *envp[]);
 int			env(int argc, char *argv[], char *envp[]);
 int			pwd(int argc, char *argv[], char *envp[]);
 
-int parsing();
-
-
+int			single(char *exec);
+int 		multi(char **execs);
 
 #endif

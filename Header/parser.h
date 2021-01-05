@@ -10,11 +10,8 @@ struct		s_parse
 	int		double_quote;
 }			t_parse;
 
-/*
-char		**input_parser(char *str);
-char 		**command_parser(char *command);
-char 		**exec_parser(char *exec);
-char 		**parser(char *str, char c);
-*/
+char	**seperator(char *line, char c);
+int		pre_parsing(char *line, char ***input);
+char	**sep_space(char *line);
 
 #endif

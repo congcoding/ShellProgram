@@ -9,7 +9,7 @@ int		env(int argc, char *argv[], char *envp[])
 	i = 0;
 	while (argv[++i])
 	{
-		if (set_env(env, argv[i]) == FAIL)
+		if (set_env(env, argv[i]) == FALSE)
 			add_env(&env, argv[i]);
 	}
 	i = -1;
