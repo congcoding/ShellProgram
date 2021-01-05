@@ -15,12 +15,14 @@ char	*ft_strdup(char *src);
 char	*ft_strndup(char *src, int len);
 char	*ft_stredup(char *src, int start, int end);
 int 	ft_strcmp(char *s1, char *s2);
-void	ft_strcpy(char *dest, char *src);
+int		ft_strcpy(char *dest, char *src);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_strjoin(char **strs, char c);
 char	**ft_split(char const *s, char c);
 void	ft_single_free(char *data);
 void	ft_double_free(char **data);
 char	*ft_strtrim(char *s1, char *set);
+
+char	*ft_strchr(const char *s, int c);
 
 #endif

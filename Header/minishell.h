@@ -11,6 +11,7 @@
 #include <string.h>
 #include <signal.h>
 
+int			g_last_ret;
 char		**g_envp;
 int			prompt(char *str);
 int			redirection(char *exec);
@@ -23,6 +24,8 @@ int			export(char *argv[]);
 int			echo(int argc, char *argv[], char *envp[]);
 int			env(int argc, char *argv[], char *envp[]);
 int			pwd(int argc, char *argv[], char *envp[]);
+
+int parsing();
 
 
 

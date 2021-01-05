@@ -1,6 +1,6 @@
 #include "lib.h"
 
-void	ft_strcpy(char *dest, char *src)
+int		ft_strcpy(char *dest, char *src)
 {
 	int i;
 
@@ -8,4 +8,5 @@ void	ft_strcpy(char *dest, char *src)
 	while (src[++i])
 		dest[i] = src[i];
 	dest[i] = 0;
+	return (i);
 }

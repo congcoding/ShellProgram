@@ -12,10 +12,14 @@ int main(int argc, char *argv[], char *envp[])
 	while (TRUE)
 	{	
 		prompt(str);
+		parsing(str);
+		/*
 		input = parser(str, ';');
 		i = -1;
 		while (input[++i])
 			piping(input[i]);;
 		ft_double_free(input);
+		*/
 	}
+	ft_double_free(g_envp);
 }

@@ -2,6 +2,7 @@
 
 int piping(char *command)
 {
+	/*
 	char **execs = parser(command, '|');
 	int fd[2];
 	int fd_in = 0;
@@ -38,4 +39,5 @@ int piping(char *command)
 		}
 	}
 	ft_double_free(execs);
+	*/
 }
