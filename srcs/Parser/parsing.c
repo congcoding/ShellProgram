@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+int		active_slash(char *line, int i)
+{
+	int is_slash;
+	int j;
+
+	is_slash = TRUE;
+	j = 1;
+	while (i - j >= 0 && line[i - j] == '\\')
+	{
+		is_slash = !is_slash;
+		j++;
+	}
+	return (is_slash);
+}
+
 int quotes(char *line, int idx)
 {
 	int	i;
@@ -27,7 +42,11 @@ int quotes(char *line, int idx)
 int		is_sep(char *line, int i)
 {
 	if (i > 0 && line[i - 1] == '\\' && ft_strchr("<>|;", line[i]))
+	{
+		if (!active_slash(line, i - 1) && quotes(line, i) == 0)
+			return (1);
 		return (0);
+	}
 	else if (ft_strchr("<>|;", line[i]) && quotes(line, i) == 0)
 		return (1);
 	else
@@ -78,7 +97,6 @@ char	*space_line(char *line)
 			new[j++] = line[i++];
 	}
 	new[j] = '\0';
-	
 	return (new);
 }
 
@@ -148,7 +166,11 @@ char **seperator(char *line, char c)
 int		is_sep_space(char *line, int i)
 {
 	if (i > 0 && line[i - 1] == '\\' && ft_strchr(" ", line[i]))
+	{
+		if (!active_slash(line, i - 1) && quotes(line, i) == 0)
+			return (1);
 		return (0);
+	}
 	else if (ft_strchr(" ", line[i]) && quotes(line, i) == 0)
 		return (1);
 	else
@@ -207,7 +229,8 @@ int pre_parsing(char *line, char ***input)
 		return (0);
 	
 	/* spacing before & after ;<>| */
-	line = space_line(line);	
+	line = space_line(line);
+	printf("%s\n", line);	
 	*input = sep_space(line);
 
 	/* valid input check */
