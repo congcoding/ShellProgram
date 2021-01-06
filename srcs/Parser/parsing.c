@@ -108,14 +108,17 @@ char **cutting(char *str, int *cut, int len)
 	char	**strs;
 	char	*temp;
 	int		i;
+	int		j;
 
 	if (!(strs = malloc(sizeof(char *) * (len + 1))))
 		return (NULL); //error process
 	i = -1;
+	j = -1;
 	while (++i < len)
 	{
 		temp = ft_stredup(str, cut[i], cut[i + 1]);
-		strs[i] = ft_strtrim(temp, " ");
+		if (strcmp(temp, ""))
+			strs[++j] = ft_strdup(temp);
 		cut[i + 1]++;
 		free(temp);
 	}
@@ -142,6 +145,16 @@ char **seperator(char *line, char c)
 	return cutting(line, cut, j);
 }
 
+int		is_sep_space(char *line, int i)
+{
+	if (i > 0 && line[i - 1] == '\\' && ft_strchr(" ", line[i]))
+		return (0);
+	else if (ft_strchr(" ", line[i]) && quotes(line, i) == 0)
+		return (1);
+	else
+		return (0);
+}
+
 char **sep_space(char *line)
 {
 	int	i;
@@ -155,11 +168,35 @@ char **sep_space(char *line)
 	while (line[++i])
 	{
 		//printf("%d %d %d %d\n", line[i] == ' ', quotes(line, i) == 0, i != 0, line[i - 1] != '\\');
-		if (line[i] == ' ' && quotes(line, i) == 0 && i != 0 && line[i - 1] != '\\')
+		if (line[i] == ' ' && is_sep_space(line, i))
 			cut[++j] = i;
 	}
 	cut[++j] = i;
 	return cutting(line, cut, j);
+}
+
+int is_token_check(char *token)
+{
+	if (!strcmp(token, "|") || !strcmp(token, ";"))
+	{
+		ft_write(2, "syntax error near unexpected token ");
+		ft_write_n(2, token);
+		g_last_ret = 2;
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+int input_check(char **input)
+{
+	while (*input)
+	{
+		if (!strcmp(*input, ";") || !strcmp(*input, "|"))
+			if (!is_token_check(*(++input)))
+				return (FALSE);
+		input++;
+	}
+	return (TRUE);
 }
 
 int pre_parsing(char *line, char ***input)
@@ -170,10 +207,13 @@ int pre_parsing(char *line, char ***input)
 		return (0);
 	
 	/* spacing before & after ;<>| */
-	line = space_line(line);
-	*input = seperator(line, ';');
-	
-	//ft_single_free(line);
+	line = space_line(line);	
+	*input = sep_space(line);
+
+	/* valid input check */
+	if (!input_check(*input))
+		return (FALSE);
+	return (TRUE);
 }
 
 

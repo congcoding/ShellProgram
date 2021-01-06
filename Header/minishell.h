@@ -15,8 +15,8 @@
 int			g_last_ret;
 char		**g_envp;
 int			prompt(char *str);
-int			redirection(char **argv, int fd[2]);
-int			piping(char *command);
+int			redirection(char ***argv, int fd[2]);
+int			piping(char **command);
 void		sig_int();
 
 
@@ -26,7 +26,9 @@ int			echo(int argc, char *argv[], char *envp[]);
 int			env(int argc, char *argv[], char *envp[]);
 int			pwd(int argc, char *argv[], char *envp[]);
 
-int			single(char *exec);
-int 		multi(char **execs);
+int			is_cmd(char *cmd);
+
+int			single(char **argv);
+int 		multi(char **command);
 
 #endif

@@ -1,21 +1,25 @@
 #include "minishell.h"
 
-int piping(char *command)
+int is_piping(char **command)
 {
-	char	**execs;
-	int		fd[2];
-	int		fd_in = 0;
-	int		pid;
-	int		i;
+	int i;
 
-	execs = seperator(command, '|');
+	i = -1;
+	while (command[++i])
+		if (!strcmp(command[i], "|"))
+			return (TRUE);
+	return (FALSE);
+}
+
+int piping(char **command)
+{
+	int		i;
 	
-	if (ft_strslen(execs) == 1)
+	i = -1;
+	if (!is_piping(command))
 	{
-		single(execs[0]);
-		ft_double_free(execs);
-		return 0;
+		single(command);
+		return (0);
 	}
-	multi(execs);
-	ft_double_free(execs);
+	multi(command);
 }

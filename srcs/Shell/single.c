@@ -1,14 +1,14 @@
 #include "minishell.h"
 
-int single(char *exec)
+int single(char **argv)
 {
-	char	**argv;
 	int		fd[2];
 
-	argv = ft_split(exec, ' '); // TODO : re parsing
 	fd[0] = 0;
 	fd[1] = 1;
-	redirection(argv, fd);
+	redirection(&argv, fd);
+	if (!is_cmd(argv[0]))
+		return (FALSE);
 	if (!ft_strcmp(argv[0], "echo"))
 		echo(ft_strslen(argv), argv, g_envp);
 	if (!ft_strcmp(argv[0], "env"))

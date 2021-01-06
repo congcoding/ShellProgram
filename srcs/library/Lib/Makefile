@@ -1,7 +1,7 @@
 TARGET = libft.a
 SRC = *.c
 OBJ = *.o
-HEADER = -I ../Header
+HEADER = -I ../../../Header
 FLAG = -Wall -Werror -Wextra
 
 all : $(TARGET)

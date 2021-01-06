@@ -3,9 +3,10 @@
 int work(char *exec, int fd[2])
 {
 	char	**argv;
+	int		re_fd[2];
 
 	argv = ft_split(exec, ' ');
-	redirection(argv, fd);
+	redirection(&argv, fd);
 	if (!ft_strcmp(argv[0], "echo"))
 		echo(ft_strslen(argv), argv, g_envp);
 	if (!ft_strcmp(argv[0], "env"))
@@ -20,16 +21,14 @@ int work(char *exec, int fd[2])
 		exit(0);
 }
 
-int multi(char **execs)
+int pipe_processing(char **execs)
 {
 	int fd[2];
-	int i;
 	int fd_in;
 	int pid;
 	int state;
 	
 	fd_in = 0;
-	i = 0;
 	while (*execs)
 	{
 		pipe(fd);
@@ -48,11 +47,35 @@ int multi(char **execs)
 		else
 		{
 			wait(&state);
-			char c = state + '0';
-			ft_write_n(2, &c);
 			close(fd[1]);
 			fd_in = fd[0];
 			execs++;
 		}
 	}
+}
+
+int multi(char **input)
+{
+	char	**cmd;
+	int		start;
+	int		i;
+
+	i = -1;
+	start = 0;
+	while (input[++i])
+	{
+		if (!strcmp(input[i], "|"))
+		{
+			cmd = ft_strsndup(input + start, i);
+			start = i + 1;
+			pipe_processing(cmd);
+			ft_double_free(cmd);
+		}
+	}
+	if (start != i)
+	{
+		cmd = ft_strsndup(input + start, i);
+		pipe_processing(cmd);
+		ft_double_free(cmd);
+	}	
 }

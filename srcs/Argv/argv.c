@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	rediretioning(char *file, int flag, int fd[2])
+void	rediretioning(char *file, char *flag, int fd[2])
 {
 	if (!file)
 	{
@@ -17,11 +17,11 @@ void	rediretioning(char *file, int flag, int fd[2])
 		g_last_ret = 2;
 		return ;
 	}
-	if (flag == TRUNC)
+	if (!ft_strcmp(flag, ">"))
 		fd[1] = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	else if (flag == APPEND)
+	else if (!ft_strcmp(flag, ">>"))
 		fd[1] = open(file, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-	else if (flag == INPUT)
+	else if (!ft_strcmp(flag, "<"))
 		fd[0] = open(file, O_RDONLY, S_IRWXU);
 }
 
@@ -42,30 +42,34 @@ int is_cmd(char *cmd)
 	
 }
 
-int redirection(char **argv, int fd[2])
+int redirection(char ***argv, int fd[2])
 {
+	char	**new;
 	int		i;
+	int		j;
 	
-	i = -1;
-	if (!is_cmd(argv[++i]))
+	if (!(new = malloc(sizeof(char *) * ft_strslen(*argv))))
 		return (FALSE);
-	while (argv[++i])
+	i = -1;
+	j = -1;
+	while ((*argv)[++i])
 	{
-		if (!strcmp(argv[i], "<"))
-			rediretioning(argv[++i], INPUT, fd);
-		if (!strcmp(argv[i], ">"))
-			rediretioning(argv[++i], TRUNC, fd);
-		if (!strcmp(argv[i], ">>"))
-			rediretioning(argv[++i], APPEND, fd);
+		if (!strcmp((*argv)[i], "<") || !strcmp((*argv)[i], ">")
+			|| !strcmp((*argv)[i], ">>"))
+		{
+			rediretioning((*argv)[++i], (*argv)[i], fd);
+			continue;
+		}
 		if (fd[0] == -1 || fd[1] == -1)
 		{
-			char c = i + '0';
-			ft_write_n(1, &c);
-			ft_write(2, argv[i]);
+			ft_write(2, (*argv)[i]);
 			ft_write_n(2, ": No such file or directory");
 			g_last_ret = 1;
 			return (FALSE);
 		}
+		new[++j] = ft_strdup((*argv)[i]);
 	}
+	new[++j] = NULL;
+	*argv = new;
 	return (TRUE);
 }
