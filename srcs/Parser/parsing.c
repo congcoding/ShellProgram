@@ -53,6 +53,23 @@ int		is_sep(char *line, int i)
 		return (0);
 }
 
+int		is_out(char *line, int i)
+{
+	if (i > 0 && line[i - 1] == '\\' && ft_strchr("\"\'\\", line[i]))
+	{
+		if (!active_slash(line, i - 1) && quotes(line, i) == 0)
+			return (1);
+		return (0);
+	}
+	else if (ft_strchr("\'\"\\", line[i]) && quotes(line, i) == 0)
+		return (1);
+	/* hav to check it problem below */
+	else if (ft_strchr("\'\"", line[i]) && quotes(line, i))
+		return (1);
+	else
+		return (0);
+}
+
 char	*space_alloc(char *line)
 {
 	char	*new;
@@ -236,6 +253,26 @@ int pre_parsing(char *line, char ***input)
 	if (!input_check(*input))
 		return (FALSE);
 	return (TRUE);
+}
+
+int	argv_parsing(char **arg)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	new = malloc(sizeof(char) * ft_strlen(*arg) + 1);
+	while ((*arg)[++i])
+	{
+		if (is_out(*arg, i))
+			continue;
+		new[++j] = (*arg)[i];
+	}
+	new[++j] = 0;
+	//free(*arg);
+	*arg = new;
 }
 
 

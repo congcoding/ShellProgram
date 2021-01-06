@@ -7,8 +7,15 @@ int single(char **argv)
 
 	fd[0] = 0;
 	fd[1] = 1;
+
+	
 	if (!redirection(&argv, fd))
 		return (FALSE);
+	
+	int i = -1;
+	while (argv[++i])
+		argv_parsing(&argv[i]);
+
 	std_backup(fd, backup);
 	if (!is_cmd(argv[0]))
 		return (FALSE);
