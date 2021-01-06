@@ -1,11 +1,9 @@
 #include "minishell.h"
 
-int work(char *exec, int fd[2])
+int work(char **argv, int fd[2])
 {
-	char	**argv;
 	int		re_fd[2];
-
-	argv = ft_split(exec, ' ');
+	
 	redirection(&argv, fd);
 	if (!ft_strcmp(argv[0], "echo"))
 		echo(ft_strslen(argv), argv, g_envp);
@@ -21,7 +19,7 @@ int work(char *exec, int fd[2])
 		exit(0);
 }
 
-int pipe_processing(char **execs)
+int pipe_processing(char ***pipe_cmd)
 {
 	int fd[2];
 	int fd_in;
@@ -29,7 +27,7 @@ int pipe_processing(char **execs)
 	int state;
 	
 	fd_in = 0;
-	while (*execs)
+	while (*pipe_cmd)
 	{
 		pipe(fd);
 		pid = fork();
@@ -38,10 +36,10 @@ int pipe_processing(char **execs)
 		else if (pid == 0)
 		{
 			dup2(fd_in, 0);
-			if (*(execs + 1))
+			if (*(pipe_cmd + 1))
 				dup2(fd[1], 1);
 			close(fd[0]);
-			work(*execs, fd);
+			work(*pipe_cmd, fd);
 			exit(g_last_ret);
 		}
 		else
@@ -49,33 +47,51 @@ int pipe_processing(char **execs)
 			wait(&state);
 			close(fd[1]);
 			fd_in = fd[0];
-			execs++;
+			pipe_cmd++;
 		}
 	}
 }
 
-int multi(char **input)
+char ***pipe_alloc(char **input)
 {
-	char	**cmd;
-	int		start;
+	char	***pipe_cmd;
 	int		i;
+	int		len;
 
 	i = -1;
+	len = 0;
+	while (input[++i])
+	{
+		if (!strcmp(input[i], "|"))
+			len +=1;
+	}
+	if (!(pipe_cmd = malloc(sizeof(char **) * (len + 1))))
+		return (NULL);
+	return (pipe_cmd);
+}
+
+int multi(char **input)
+{
+	char	***pipe_cmd;
+	int		start;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
 	start = 0;
+	if (!(pipe_cmd = pipe_alloc(input)))
+		return (FALSE);
 	while (input[++i])
 	{
 		if (!strcmp(input[i], "|"))
 		{
-			cmd = ft_strsndup(input + start, i);
+			pipe_cmd[++j] = ft_strsndup(input + start, i);
 			start = i + 1;
-			pipe_processing(cmd);
-			ft_double_free(cmd);
 		}
 	}
 	if (start != i)
-	{
-		cmd = ft_strsndup(input + start, i);
-		pipe_processing(cmd);
-		ft_double_free(cmd);
-	}	
+		pipe_cmd[++j] = ft_strsndup(input + start, i);
+	pipe_cmd[++j] = NULL;
+	pipe_processing(pipe_cmd);
 }
