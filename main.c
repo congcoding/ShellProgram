@@ -6,12 +6,6 @@ int shell(char **input)
 	int		start;
 	int		i;
 
-	/*
-	i = -1;
-	while (input[++i])
-		printf("|%s| ", input[i]);
-	printf("\n");
-	*/
 	i = -1;
 	start = 0;
 	while (input[++i])

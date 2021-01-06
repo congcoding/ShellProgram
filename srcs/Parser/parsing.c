@@ -230,7 +230,6 @@ int pre_parsing(char *line, char ***input)
 	
 	/* spacing before & after ;<>| */
 	line = space_line(line);
-	printf("%s\n", line);	
 	*input = sep_space(line);
 
 	/* valid input check */

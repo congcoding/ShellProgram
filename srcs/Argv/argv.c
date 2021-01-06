@@ -58,14 +58,14 @@ int redirection(char ***argv, int fd[2])
 			|| !strcmp((*argv)[i], ">>"))
 		{
 			rediretioning((*argv)[++i], (*argv)[i], fd);
+			if (fd[0] == -1 || fd[1] == -1)
+			{
+				ft_write(2, (*argv)[i]);
+				ft_write_n(2, ": No such file or directory");
+				g_last_ret = 1;
+				return (FALSE);
+			}
 			continue;
-		}
-		if (fd[0] == -1 || fd[1] == -1)
-		{
-			ft_write(2, (*argv)[i]);
-			ft_write_n(2, ": No such file or directory");
-			g_last_ret = 1;
-			return (FALSE);
 		}
 		new[++j] = ft_strdup((*argv)[i]);
 	}
