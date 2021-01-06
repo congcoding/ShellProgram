@@ -3,8 +3,11 @@
 int work(char **argv, int fd[2])
 {
 	int		re_fd[2];
+	int		backup[2];
 	
-	redirection(&argv, fd);
+	if (!redirection(&argv, re_fd))
+		return (FALSE);
+	std_backup(re_fd, backup);
 	if (!ft_strcmp(argv[0], "echo"))
 		echo(ft_strslen(argv), argv, g_envp);
 	if (!ft_strcmp(argv[0], "env"))
@@ -18,6 +21,28 @@ int work(char **argv, int fd[2])
 	if (!ft_strcmp(argv[0], "exit"))
 		exit(0);
 }
+
+/*
+int work(char **argv, int fd[2])
+{
+	int		re_fd[2];
+	
+	if (!redirection(&argv, fd))
+		return (FALSE);
+	if (!ft_strcmp(argv[0], "echo"))
+		echo(ft_strslen(argv), argv, g_envp);
+	if (!ft_strcmp(argv[0], "env"))
+		env(ft_strslen(argv), argv, g_envp);
+	if (!ft_strcmp(argv[0], "pwd"))
+		pwd(ft_strslen(argv), argv, g_envp);
+	if (!ft_strcmp(argv[0], "cd"))
+		cd(argv[1]);
+	if (!ft_strcmp(argv[0], "export"))
+		export(argv);
+	if (!ft_strcmp(argv[0], "exit"))
+		exit(0);
+}
+*/
 
 int pipe_processing(char ***pipe_cmd)
 {

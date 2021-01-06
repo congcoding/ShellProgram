@@ -30,5 +30,7 @@ int			is_cmd(char *cmd);
 
 int			single(char **argv);
 int 		multi(char **command);
+void		std_backup(int fd[2], int backup[2]);
+void		std_reset(int fd[2], int backup[2]);
 
 #endif
