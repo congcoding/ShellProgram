@@ -15,7 +15,6 @@ int single(char **argv)
 	int i = -1;
 	while (argv[++i])
 		argv_parsing(&argv[i]);
-
 	std_backup(fd, backup);
 	if (!is_cmd(argv[0]))
 		return (FALSE);

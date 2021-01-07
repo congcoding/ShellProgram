@@ -32,6 +32,7 @@ int main(int argc, char *argv[], char *envp[])
 	char	**input;
 	int		i;
 
+
 	sig_int();
 	g_envp = init_envp(envp);
 	while (TRUE)

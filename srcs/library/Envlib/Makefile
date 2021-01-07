@@ -1,7 +1,7 @@
 TARGET = libenv.a
 SRC = *.c
 OBJ = *.o
-HEADER = -I ../Header
+HEADER = -I ../../../Header
 FLAG = -Wall -Werror -Wextra
 LIB = -L../Lib -lft
 

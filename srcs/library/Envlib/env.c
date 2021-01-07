@@ -46,6 +46,8 @@ char		*get_env(char *envp[], char *key)
 	char	*env;
 	int		i;
 
+	if (key[0] == 0 || !key)
+		return (ft_strdup(""));
 	while (*envp)
 	{
 		i = -1;
@@ -59,7 +61,7 @@ char		*get_env(char *envp[], char *key)
 		}
 		envp++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 int			set_env(char *envp[], char *env_string)
@@ -81,14 +83,14 @@ int			set_env(char *envp[], char *env_string)
 					if(!(*envp = ft_strdup(env_string)))
 						exit(1); // errno process;
 					ft_double_free(key_value);
-					return (SUCCESS);
+					return (TRUE);
 				}
 			}
 		}
 		envp++;
 	}
 	ft_double_free(key_value);
-	return (FAIL);
+	return (FALSE);
 }
 
 int			add_env(char ***envp, char *env_string)
@@ -107,5 +109,5 @@ int			add_env(char ***envp, char *env_string)
 	new_envp[i + 1] = NULL;
 	ft_double_free(*envp);
 	*envp = new_envp;
-	return (SUCCESS);
+	return (TRUE);
 }

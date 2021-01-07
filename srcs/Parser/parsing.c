@@ -255,19 +255,48 @@ int pre_parsing(char *line, char ***input)
 	return (TRUE);
 }
 
+char *get_key(char *arg, int *idx)
+{
+	char	*key;
+	int		i;
+
+	i = *idx;
+	while (arg[i])
+	{
+		if (ft_strchr("<>|;\"\'\\ ", arg[i]))
+		{
+			key = ft_strndup(arg + *idx, i - *idx);
+			*idx =  i;
+			return (key);
+		}
+		i++;
+	}
+	key = ft_strndup(arg + *idx, i - *idx);
+	*idx = i;
+	return (key);
+}
+
 int	argv_parsing(char **arg)
 {
+	char	*key;
 	char	*new;
 	int		i;
 	int		j;
 
 	i = -1;
 	j = -1;
-	new = malloc(sizeof(char) * ft_strlen(*arg) + 1);
+	new = malloc(255);
 	while ((*arg)[++i])
 	{
 		if (is_out(*arg, i))
 			continue;
+		if ((*arg)[i] == (-1 * '$'))
+		{
+			i++;
+			key = get_key(*arg, &i);
+			j += ft_strcpy(new + ++j, get_env(g_envp, key)) - 1;
+			continue;
+		}
 		new[++j] = (*arg)[i];
 	}
 	new[++j] = 0;
