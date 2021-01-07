@@ -272,7 +272,7 @@ char *get_key(char *arg, int *idx)
 		i++;
 	}
 	key = ft_strndup(arg + *idx, i - *idx);
-	*idx = i;
+	*idx = i - 1;
 	return (key);
 }
 

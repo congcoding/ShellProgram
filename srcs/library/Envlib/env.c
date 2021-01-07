@@ -54,10 +54,8 @@ char		*get_env(char *envp[], char *key)
 		while (++i < ft_strlen(*envp))
 		{
 			if ((*envp)[i] == '=')
-			{
 				if (!ft_strncmp(*envp, key, i - 1))
 					return (ft_strdup(*envp + i + 1));
-			}
 		}
 		envp++;
 	}
