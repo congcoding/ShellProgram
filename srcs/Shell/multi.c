@@ -24,28 +24,6 @@ int work(char **argv, int fd[2])
 		ft_exit();
 }
 
-/*
-int work(char **argv, int fd[2])
-{
-	int		re_fd[2];
-	
-	if (!redirection(&argv, fd))
-		return (FALSE);
-	if (!ft_strcmp(argv[0], "echo"))
-		echo(ft_strslen(argv), argv, g_envp);
-	if (!ft_strcmp(argv[0], "env"))
-		env(ft_strslen(argv), argv, g_envp);
-	if (!ft_strcmp(argv[0], "pwd"))
-		pwd(ft_strslen(argv), argv, g_envp);
-	if (!ft_strcmp(argv[0], "cd"))
-		cd(argv[1]);
-	if (!ft_strcmp(argv[0], "export"))
-		export(argv);
-	if (!ft_strcmp(argv[0], "exit"))
-		exit(0);
-}
-*/
-
 int pipe_processing(char ***pipe_cmd)
 {
 	int fd[2];
@@ -72,6 +50,7 @@ int pipe_processing(char ***pipe_cmd)
 		else
 		{
 			wait(&state);
+			g_last_ret = state / 256;
 			close(fd[1]);
 			fd_in = fd[0];
 			pipe_cmd++;
