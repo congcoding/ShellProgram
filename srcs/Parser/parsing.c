@@ -145,8 +145,9 @@ char **cutting(char *str, int *cut, int len)
 	int		i;
 	int		j;
 
-	if (!(strs = malloc(sizeof(char *) * (len + 1))))
-		return (NULL); //error process
+
+	if (!(strs = double_alloc(len)))
+		return (NULL);
 	i = -1;
 	j = -1;
 	while (++i < len)
@@ -301,7 +302,7 @@ char	*argv_parsing(char *arg)
 
 	i = -1;
 	j = -1;
-	new = malloc(1000);
+	new = malloc(1000); // TODO : have to change
 	while (arg[++i])
 	{
 		if (is_out(arg, i))

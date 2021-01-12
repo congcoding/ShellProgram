@@ -68,7 +68,8 @@ char	**redirection(char **cmd, int fd[2])
 	int		i;
 	int		j;
 	
-	if (!(argv = malloc(sizeof(char *) * (ft_strslen(cmd) + 1))))
+	argv = NULL;
+	if (!(argv = double_alloc(ft_strslen(cmd))))
 		return (NULL);
 	i = -1;
 	j = -1;
@@ -82,6 +83,7 @@ char	**redirection(char **cmd, int fd[2])
 			{
 				ft_write(2, cmd[i]);
 				ft_write_n(2, ": No such file or directory");
+				ft_double_free(argv);
 				g_last_ret = 1;
 				return (NULL);
 			}

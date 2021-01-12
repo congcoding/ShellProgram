@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+int global_init()
+{
+	g_last_ret = 0;
+	g_pipe_cmd = NULL;
+	g_envp = NULL;
+	g_input = NULL;
+	g_cmd = NULL;
+	g_argv = NULL;
+	g_argv_p = NULL;
+}
+
 int shell(char **input)
 {
 	int		start;
@@ -31,9 +42,8 @@ int main(int argc, char *argv[], char *envp[])
 	int		i;
 
 	sig_int();
+	global_init();
 	g_envp = init_envp(envp);
-	g_pipe_cmd = NULL;
-	g_last_ret = 0;
 	while (TRUE)
 	{	
 		prompt(str);

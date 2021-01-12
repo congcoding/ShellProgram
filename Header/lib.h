@@ -24,7 +24,10 @@ char	**ft_split(char const *s, char c);
 void	ft_single_free(char *data);
 void	ft_double_free(char **data);
 char	*ft_strtrim(char *s1, char *set);
-
 char	*ft_strchr(const char *s, int c);
+
+char	*single_alloc(int len);
+char	**double_alloc(int len);
+char	***triple_alloc(int len);
 
 #endif

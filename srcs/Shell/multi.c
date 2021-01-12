@@ -19,7 +19,7 @@ static int work2(char **argv, int fd[2], int backup[2])
 	char	**argv_p;
 	int		i;
 
-	if (!(argv_p = malloc(sizeof(char *) * (ft_strslen(argv) + 1))))
+	if (!(argv_p = double_alloc(ft_strslen(argv))))
 		return (FALSE);
 	i = -1;
 	while (argv[++i])
@@ -109,7 +109,7 @@ char ***pipe_alloc(char **input)
 		if (!strcmp(input[i], "|"))
 			len +=1;
 	}
-	if (!(pipe_cmd = malloc(sizeof(char **) * (len + 1))))
+	if (!(pipe_cmd = triple_alloc(len)))
 		return (NULL);
 	return (pipe_cmd);
 }
