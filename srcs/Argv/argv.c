@@ -60,9 +60,9 @@ int is_cmd(char *cmd)
 		return (TRUE);
 	else
 	{
-		g_last_ret = 2;
+		g_last_ret = 3; //(normally 127)
 		ft_write(2, cmd);
-		ft_write_n(2, " is not command");
+		ft_write_n(2, " : command not found");
 		return (FALSE);
 	}
 	

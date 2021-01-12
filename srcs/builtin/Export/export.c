@@ -10,4 +10,5 @@ int export(char *argv[])
 		if (set_env(g_envp, argv[i]) == FALSE)
 			add_env(&g_envp, argv[i]);
 	}
+	g_last_ret = 0;
 }

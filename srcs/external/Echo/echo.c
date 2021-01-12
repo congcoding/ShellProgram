@@ -1,4 +1,4 @@
-#include "lib.h"
+#include "minishell.h"
 
 int echo(int argc, char *argv[], char *envp[])
 {
@@ -18,5 +18,6 @@ int echo(int argc, char *argv[], char *envp[])
 		ft_write(1, argv[i + option]);
 	else 
 		ft_write_n(1, argv[i + option]);
+	g_last_ret = 0;
 	return 0;
 }
