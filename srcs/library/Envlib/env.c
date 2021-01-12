@@ -16,6 +16,7 @@ static char	**key_value_parse(char *env_string)
 				exit(1); // errorno process;
 			if (!(key_value[1] = ft_strdup(env_string + i + 1)))
 				exit(1); // errorno process;
+			break;
 		}
 	}
 	key_value[2] = NULL;
@@ -135,6 +136,7 @@ int			delete_env(char ***envp, char *key)
 		new_envp[++j] = ft_strdup((*envp)[i]);
 	}
 	new_envp[++j] = 0;
+	ft_double_free(*envp);
 	*envp = new_envp;
 	return (TRUE);
 }
