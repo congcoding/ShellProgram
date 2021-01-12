@@ -28,7 +28,9 @@ int single(char **argv)
 		cd(argv[1]);
 	if (!ft_strcmp(argv[0], "export"))
 		export(argv);
+	if (!ft_strcmp(argv[0], "unset"))
+		unset(argv);
 	if (!ft_strcmp(argv[0], "exit"))
-		exit(0);
+		ft_exit();
 	std_reset(fd, backup);
 }

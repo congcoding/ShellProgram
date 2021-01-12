@@ -36,6 +36,10 @@ int quotes(char *line, int idx)
 			quote = 0;
 		i++;
 	}
+	if (quote == 1 && line[idx] == '\'')
+		quote = 0;
+	if (quote == 2 && line[idx] == '\"')
+		quote = 0;
 	return (quote);
 }
 
@@ -62,9 +66,6 @@ int		is_out(char *line, int i)
 		return (0);
 	}
 	else if (ft_strchr("\'\"\\", line[i]) && quotes(line, i) == 0)
-		return (1);
-	/* hav to check it problem below */
-	else if (ft_strchr("\'\"", line[i]) && quotes(line, i))
 		return (1);
 	else
 		return (0);
@@ -122,7 +123,6 @@ int	valid_quote(char *line)
 	if (quotes(line, 256))
 	{
 		ft_write_n(2, "syntax error : open quote");
-		ft_single_free(line);
 		g_last_ret = 2;
 		return (FALSE);
 	}
@@ -243,7 +243,7 @@ int pre_parsing(char *line, char ***input)
 	//get_next_line(0, &line); //TODO : gnl error fixing
 	/* open quote check */
 	if (!valid_quote(line))
-		return (0);
+		return (FALSE);
 	
 	/* spacing before & after ;<>| */
 	line = space_line(line);
@@ -266,7 +266,7 @@ char *get_key(char *arg, int *idx)
 		if (ft_strchr("<>|;\"\'\\ ", arg[i]))
 		{
 			key = ft_strndup(arg + *idx, i - *idx);
-			*idx =  i;
+			*idx =  i - 1;
 			return (key);
 		}
 		i++;
@@ -292,6 +292,11 @@ int	argv_parsing(char **arg)
 			continue;
 		if ((*arg)[i] == (-1 * '$'))
 		{
+			if ((*arg)[i + 1] == '?')
+			{
+				new[++j] = g_last_ret + '0';
+				i++;
+			}
 			i++;
 			key = get_key(*arg, &i);
 			j += ft_strcpy(new + ++j, get_env(g_envp, key)) - 1;

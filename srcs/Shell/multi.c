@@ -18,8 +18,10 @@ int work(char **argv, int fd[2])
 		cd(argv[1]);
 	if (!ft_strcmp(argv[0], "export"))
 		export(argv);
+	if (!ft_strcmp(argv[0], "unset"))
+		unset(argv);
 	if (!ft_strcmp(argv[0], "exit"))
-		exit(0);
+		ft_exit();
 }
 
 /*

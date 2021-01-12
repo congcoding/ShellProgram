@@ -32,13 +32,13 @@ int main(int argc, char *argv[], char *envp[])
 	char	**input;
 	int		i;
 
-
 	sig_int();
 	g_envp = init_envp(envp);
 	while (TRUE)
 	{	
 		prompt(str);
-		pre_parsing(str, &input);
+		if (!pre_parsing(str, &input))
+			continue;
 		i = -1;
 		shell(input);
 		ft_double_free(input);

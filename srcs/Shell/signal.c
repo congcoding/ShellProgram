@@ -2,8 +2,7 @@
 
 static void handle()
 {
-	ft_double_free(g_envp);
-	exit(1);
+	//ft_double_free(g_envp);
 }
 
 void sig_int()

@@ -23,8 +23,10 @@ void		sig_int();
 int			cd(char *dir);
 int			export(char *argv[]);
 int			echo(int argc, char *argv[], char *envp[]);
+int			unset(char **argv);
 int			env(int argc, char *argv[], char *envp[]);
 int			pwd(int argc, char *argv[], char *envp[]);
+int 		ft_exit();
 
 int			is_cmd(char *cmd);
 

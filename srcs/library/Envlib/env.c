@@ -109,3 +109,29 @@ int			add_env(char ***envp, char *env_string)
 	*envp = new_envp;
 	return (TRUE);
 }
+
+int			delete_env(char ***envp, char *key)
+{
+	char	**new_envp;
+	char	**key_value;
+	int		i;
+	int		j;
+	int		len;
+
+	len = ft_strslen(*envp);
+	if (!(new_envp = malloc(sizeof(char *) * (len + 1))))
+		return (ERROR); // errno process
+	i = -1;
+	j = -1;
+	while (++i < len)
+	{
+		key_value = key_value_parse((*envp)[i]);
+		if (!ft_strcmp(key_value[0], key))
+			continue;
+		new_envp[++j] = ft_strdup((*envp)[i]);
+	}
+	new_envp[++j] = 0;
+	ft_double_free(*envp);
+	*envp = new_envp;
+	return (TRUE);
+}
