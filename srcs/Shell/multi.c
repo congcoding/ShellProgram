@@ -5,7 +5,7 @@ int work(char **argv, int fd[2])
 	int		re_fd[2];
 	int		backup[2];
 	
-	if (!redirection(&argv, re_fd))
+	if (!redirection(argv, re_fd))
 		return (FALSE);
 	std_backup(re_fd, backup);
 	if (!ft_strcmp(argv[0], "echo"))
@@ -22,6 +22,7 @@ int work(char **argv, int fd[2])
 		unset(argv);
 	if (!ft_strcmp(argv[0], "exit"))
 		ft_exit();
+	ft_double_free(argv);
 }
 
 int pipe_processing(char ***pipe_cmd)

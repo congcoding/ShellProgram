@@ -68,34 +68,33 @@ int is_cmd(char *cmd)
 	
 }
 
-int redirection(char ***argv, int fd[2])
+char	**redirection(char **cmd, int fd[2])
 {
-	char	**new;
+	char	**argv;
 	int		i;
 	int		j;
 	
-	if (!(new = malloc(sizeof(char *) * ft_strslen(*argv))))
-		return (FALSE);
+	if (!(argv = malloc(sizeof(char *) * (ft_strslen(cmd) + 1))))
+		return (NULL);
 	i = -1;
 	j = -1;
-	while ((*argv)[++i])
+	while (cmd[++i])
 	{
-		if (!strcmp((*argv)[i], "<") || !strcmp((*argv)[i], ">")
-			|| !strcmp((*argv)[i], ">>"))
+		if (!strcmp(cmd[i], "<") || !strcmp(cmd[i], ">")
+			|| !strcmp(cmd[i], ">>"))
 		{
-			rediretioning((*argv)[++i], (*argv)[i], fd);
+			rediretioning(cmd[++i], cmd[i], fd);
 			if (fd[0] == -1 || fd[1] == -1)
 			{
-				ft_write(2, (*argv)[i]);
+				ft_write(2, cmd[i]);
 				ft_write_n(2, ": No such file or directory");
 				g_last_ret = 1;
-				return (FALSE);
+				return (NULL);
 			}
 			continue;
 		}
-		new[++j] = ft_strdup((*argv)[i]);
+		argv[++j] = ft_strdup(cmd[i]);
 	}
-	new[++j] = NULL;
-	*argv = new;
-	return (TRUE);
+	argv[++j] = NULL;
+	return (argv);
 }

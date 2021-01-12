@@ -15,7 +15,7 @@
 int			g_last_ret;
 char		**g_envp;
 int			prompt(char *str);
-int			redirection(char ***argv, int fd[2]);
+char		**redirection(char **cmd, int fd[2]);
 int			piping(char **command);
 void		sig_int();
 

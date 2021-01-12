@@ -206,7 +206,6 @@ char **sep_space(char *line)
 	cut[++j] = 0;
 	while (line[++i])
 	{
-		//printf("%d %d %d %d\n", line[i] == ' ', quotes(line, i) == 0, i != 0, line[i - 1] != '\\');
 		if (line[i] == ' ' && is_sep_space(line, i))
 			cut[++j] = i;
 	}
@@ -256,6 +255,7 @@ int pre_parsing(char *line, char ***input)
 	line = space_line(line);
 	*input = sep_space(line);
 	/* valid input check */
+	free(line);
 	if (!input_check(*input))
 		return (FALSE);
 	return (TRUE);
@@ -282,37 +282,40 @@ char *get_key(char *arg, int *idx)
 	return (key);
 }
 
-int	argv_parsing(char **arg)
+char	*argv_parsing(char *arg)
 {
 	char	*key;
 	char	*new;
+	char	*env;
 	int		i;
 	int		j;
 
 	i = -1;
 	j = -1;
-	new = malloc(255);
-	while ((*arg)[++i])
+	new = malloc(1000);
+	while (arg[++i])
 	{
-		if (is_out(*arg, i))
+		if (is_out(arg, i))
 			continue;
-		if ((*arg)[i] == (-1 * '$'))
+		if (arg[i] == (-1 * '$'))
 		{
-			if ((*arg)[i + 1] == '?')
+			if (arg[i + 1] == '?')
 			{
 				new[++j] = g_last_ret + '0';
 				i++;
 			}
 			i++;
-			key = get_key(*arg, &i);
-			j += ft_strcpy(new + ++j, get_env(g_envp, key)) - 1;
+			key = get_key(arg, &i);
+			env = get_env(g_envp, key);
+			j += ft_strcpy(new + ++j, env) - 1;
+			free(key);
+			free(env);
 			continue;
 		}
-		new[++j] = (*arg)[i];
+		new[++j] = arg[i];
 	}
 	new[++j] = 0;
-	//free(*arg);
-	*arg = new;
+	return (new);
 }
 
 

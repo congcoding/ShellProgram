@@ -13,6 +13,6 @@ struct		s_parse
 char	**seperator(char *line, char c);
 int		pre_parsing(char *line, char ***input);
 char	**sep_space(char *line);
-int		argv_parsing(char **arg);
+char	*argv_parsing(char *arg);
 
 #endif
