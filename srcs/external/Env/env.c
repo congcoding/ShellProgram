@@ -16,5 +16,5 @@ int		env(int argc, char *argv[], char *envp[])
 	while (env[++i])
 		ft_write_n(1, env[i]);
 	g_last_ret = 0;
-	free(env);
+	ft_double_free(env);
 }

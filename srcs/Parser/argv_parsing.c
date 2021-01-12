@@ -47,9 +47,7 @@ static char	enving(char *arg, char *new, int *idx, int *jdx)
 
 char		*argv_parsing(char *arg)
 {
-	
 	char	*new;
-	
 	int		i;
 	int		j;
 
@@ -62,6 +60,7 @@ char		*argv_parsing(char *arg)
 			continue;
 		if (arg[i] == (-1 * '$'))
 		{
+			enving(arg, new, &i, &j);
 			continue;
 		}
 		new[++j] = arg[i];
