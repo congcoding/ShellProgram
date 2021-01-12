@@ -1,28 +1,65 @@
 #include "minishell.h"
 
-int work(char **argv, int fd[2])
+static void child_exit()
 {
-	int		re_fd[2];
+	int i;
+
+	ft_double_free(g_cmd);
+	ft_double_free(g_input);
+	ft_double_free(g_envp);
+	i = -1;
+	while (g_pipe_cmd[++i])
+		ft_double_free(g_pipe_cmd[i]);
+	free(g_pipe_cmd);
+	exit(g_last_ret);
+}
+
+static int work2(char **argv, int fd[2], int backup[2])
+{
+	char	**argv_p;
+	int		i;
+
+	if (!(argv_p = malloc(sizeof(char *) * (ft_strslen(argv) + 1))))
+		return (FALSE);
+	i = -1;
+	while (argv[++i])
+		argv_p[i] = argv_parsing(argv[i]);
+	std_backup(fd, backup);
+	if (!is_cmd(argv_p[0]))
+		return (FALSE);
+	if (!ft_strcmp(argv_p[0], "echo"))
+		echo(ft_strslen(argv_p), argv_p, g_envp);
+	if (!ft_strcmp(argv_p[0], "env"))
+		env(ft_strslen(argv_p), argv_p, g_envp);
+	if (!ft_strcmp(argv_p[0], "pwd"))
+		pwd(ft_strslen(argv_p), argv_p, g_envp);
+	if (!ft_strcmp(argv_p[0], "cd"))
+		cd(argv_p[1]);
+	if (!ft_strcmp(argv_p[0], "export"))
+		export(argv_p);
+	if (!ft_strcmp(argv_p[0], "unset"))
+		unset(argv_p);
+	if (!ft_strcmp(argv_p[0], "exit"))
+		ft_exit();
+	ft_double_free(argv_p);
+	return (TRUE);
+}
+
+static int work(char **cmd)
+{
+	char	**argv;
+	int		fd[2];
 	int		backup[2];
 	
-	if (!redirection(argv, re_fd))
+	fd[0] = 0;
+	fd[1] = 1;
+	if (!(argv = redirection(cmd, fd)))
 		return (FALSE);
-	std_backup(re_fd, backup);
-	if (!ft_strcmp(argv[0], "echo"))
-		echo(ft_strslen(argv), argv, g_envp);
-	if (!ft_strcmp(argv[0], "env"))
-		env(ft_strslen(argv), argv, g_envp);
-	if (!ft_strcmp(argv[0], "pwd"))
-		pwd(ft_strslen(argv), argv, g_envp);
-	if (!ft_strcmp(argv[0], "cd"))
-		cd(argv[1]);
-	if (!ft_strcmp(argv[0], "export"))
-		export(argv);
-	if (!ft_strcmp(argv[0], "unset"))
-		unset(argv);
-	if (!ft_strcmp(argv[0], "exit"))
-		ft_exit();
+	if (!work2(argv, fd, backup))
+		return (FALSE);
 	ft_double_free(argv);
+	std_reset(fd, backup);
+	return (TRUE);
 }
 
 int pipe_processing(char ***pipe_cmd)
@@ -45,8 +82,8 @@ int pipe_processing(char ***pipe_cmd)
 			if (*(pipe_cmd + 1))
 				dup2(fd[1], 1);
 			close(fd[0]);
-			work(*pipe_cmd, fd);
-			exit(g_last_ret);
+			work(*pipe_cmd);
+			child_exit();
 		}
 		else
 		{
@@ -66,7 +103,7 @@ char ***pipe_alloc(char **input)
 	int		len;
 
 	i = -1;
-	len = 0;
+	len = 1;
 	while (input[++i])
 	{
 		if (!strcmp(input[i], "|"))
@@ -79,7 +116,6 @@ char ***pipe_alloc(char **input)
 
 int multi(char **input)
 {
-	char	***pipe_cmd;
 	int		start;
 	int		i;
 	int		j;
@@ -87,18 +123,19 @@ int multi(char **input)
 	i = -1;
 	j = -1;
 	start = 0;
-	if (!(pipe_cmd = pipe_alloc(input)))
+	g_pipe_cmd = NULL;
+	if (!(g_pipe_cmd = pipe_alloc(input)))
 		return (FALSE);
 	while (input[++i])
 	{
 		if (!strcmp(input[i], "|"))
 		{
-			pipe_cmd[++j] = ft_strsndup(input + start, i);
+			g_pipe_cmd[++j] = ft_strsndup(input + start, i);
 			start = i + 1;
 		}
 	}
 	if (start != i)
-		pipe_cmd[++j] = ft_strsndup(input + start, i);
-	pipe_cmd[++j] = NULL;
-	pipe_processing(pipe_cmd);
+		g_pipe_cmd[++j] = ft_strsndup(input + start, i);
+	g_pipe_cmd[++j] = NULL;
+	pipe_processing(g_pipe_cmd);
 }

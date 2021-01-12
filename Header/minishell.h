@@ -14,6 +14,12 @@
 
 int			g_last_ret;
 char		**g_envp;
+char		**g_input;
+char		**g_cmd;
+char		***g_pipe_cmd;
+char		**g_argv;
+char		**g_argv_p;
+
 int			prompt(char *str);
 char		**redirection(char **cmd, int fd[2]);
 int			piping(char **command);

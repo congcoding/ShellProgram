@@ -224,10 +224,12 @@ int is_token_check(char **token)
 	}
 	return (TRUE);
 }
-
+/*
+	Have to fix it  > < 관련
+*/
 int input_check(char **input)
 {
-	if ((!strcmp(*input, ";") || !strcmp(*input, "|"))
+	if ((!ft_strcmp(*input, ";") || !ft_strcmp(*input, "|"))
 		&& ft_strslen(input) == 1)
 	{
 		ft_write(2, "syntax error near unexpected token ");
@@ -237,6 +239,13 @@ int input_check(char **input)
 	}
 	while (*input)
 	{
+		if ((!ft_strcmp(*input, ">") || !ft_strcmp(*input, "<") 
+		|| !ft_strcmp(*input, ">>")) && !*(input + 1))
+		{
+			ft_write_n(2, "syntax error near unexpected token \'newline\'");
+			g_last_ret = 2;
+			return (FALSE);
+		}
 		if (!strcmp(*input, ";") || !strcmp(*input, "|"))
 			if (!is_token_check(input))
 				return (FALSE);

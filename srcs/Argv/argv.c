@@ -28,12 +28,6 @@ void	std_reset(int fd[2], int backup[2])
 
 void	rediretioning(char *file, char *flag, int fd[2])
 {
-	if (!file)
-	{
-		ft_write_n(2, "syntax error near unexpected token `newline'");
-		g_last_ret = 2;
-		return ;
-	}
 	if (!strcmp(file, "<") || !strcmp(file, ">")
 		|| !strcmp(file, ">>") || !strcmp(file, "|")
 		|| !strcmp(file, ";"))
