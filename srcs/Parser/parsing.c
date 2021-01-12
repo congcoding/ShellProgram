@@ -214,12 +214,12 @@ char **sep_space(char *line)
 	return cutting(line, cut, j);
 }
 
-int is_token_check(char *token)
-{
-	if (!strcmp(token, "|") || !strcmp(token, ";"))
+int is_token_check(char **token)
+{	
+	if (!ft_strcmp(*(token + 1), "|") || !ft_strcmp(*(token + 1), ";"))
 	{
 		ft_write(2, "syntax error near unexpected token ");
-		ft_write_n(2, token);
+		ft_write_n(2, *token);
 		g_last_ret = 2;
 		return (FALSE);
 	}
@@ -228,10 +228,18 @@ int is_token_check(char *token)
 
 int input_check(char **input)
 {
+	if ((!strcmp(*input, ";") || !strcmp(*input, "|"))
+		&& ft_strslen(input) == 1)
+	{
+		ft_write(2, "syntax error near unexpected token ");
+		ft_write_n(2, *input);
+		g_last_ret = 2;
+		return (FALSE);
+	}
 	while (*input)
 	{
 		if (!strcmp(*input, ";") || !strcmp(*input, "|"))
-			if (!is_token_check(*(++input)))
+			if (!is_token_check(input))
 				return (FALSE);
 		input++;
 	}
@@ -244,11 +252,9 @@ int pre_parsing(char *line, char ***input)
 	/* open quote check */
 	if (!valid_quote(line))
 		return (FALSE);
-	
 	/* spacing before & after ;<>| */
 	line = space_line(line);
 	*input = sep_space(line);
-
 	/* valid input check */
 	if (!input_check(*input))
 		return (FALSE);

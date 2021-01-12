@@ -2,7 +2,8 @@
 
 static void handle()
 {
-	//ft_double_free(g_envp);
+	ft_write_n(1, "");
+	ft_write(1, "$> ");
 }
 
 void sig_int()

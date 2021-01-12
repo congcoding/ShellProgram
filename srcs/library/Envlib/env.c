@@ -80,14 +80,12 @@ int			set_env(char *envp[], char *env_string)
 					free(*envp);
 					if(!(*envp = ft_strdup(env_string)))
 						exit(1); // errno process;
-					ft_double_free(key_value);
 					return (TRUE);
 				}
 			}
 		}
 		envp++;
 	}
-	ft_double_free(key_value);
 	return (FALSE);
 }
 
@@ -105,7 +103,6 @@ int			add_env(char ***envp, char *env_string)
 		new_envp[i] = ft_strdup((*envp)[i]);
 	new_envp[i] = ft_strdup(env_string);
 	new_envp[i + 1] = NULL;
-	ft_double_free(*envp);
 	*envp = new_envp;
 	return (TRUE);
 }
@@ -131,7 +128,6 @@ int			delete_env(char ***envp, char *key)
 		new_envp[++j] = ft_strdup((*envp)[i]);
 	}
 	new_envp[++j] = 0;
-	ft_double_free(*envp);
 	*envp = new_envp;
 	return (TRUE);
 }

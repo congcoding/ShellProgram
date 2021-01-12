@@ -11,7 +11,6 @@ int single(char **argv)
 	
 	if (!redirection(&argv, fd))
 		return (FALSE);
-	
 	int i = -1;
 	while (argv[++i])
 		argv_parsing(&argv[i]);
