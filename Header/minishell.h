@@ -41,5 +41,12 @@ int 		multi(char **command);
 void		std_backup(int fd[2], int backup[2]);
 void		std_reset(int fd[2], int backup[2]);
 
+char		***pipe_alloc(char **input);
+void		child_exit();
+int			work(char **cmd);
+
+void		std_reset(int fd[2], int backup[2]);
+void		std_reset(int fd[2], int backup[2]);
+int			is_cmd(char *cmd);
 
 #endif

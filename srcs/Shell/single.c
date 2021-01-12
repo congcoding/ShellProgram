@@ -1,6 +1,24 @@
 #include "minishell.h"
 
-static int work(char **argv, int fd[2], int backup[2])
+static int work2()
+{
+	if (!ft_strcmp(g_argv_p[0], "echo"))
+		echo(ft_strslen(g_argv_p), g_argv_p, g_envp);
+	if (!ft_strcmp(g_argv_p[0], "env"))
+		env(ft_strslen(g_argv_p), g_argv_p, g_envp);
+	if (!ft_strcmp(g_argv_p[0], "pwd"))
+		pwd(ft_strslen(g_argv_p), g_argv_p, g_envp);
+	if (!ft_strcmp(g_argv_p[0], "cd"))
+		cd(g_argv_p[1]);
+	if (!ft_strcmp(g_argv_p[0], "export"))
+		export(g_argv_p);
+	if (!ft_strcmp(g_argv_p[0], "unset"))
+		unset(g_argv_p);
+	if (!ft_strcmp(g_argv_p[0], "exit"))
+		ft_exit();
+}
+
+static int single_work(char **argv, int fd[2], int backup[2])
 {
 	int		i;
 
@@ -16,20 +34,7 @@ static int work(char **argv, int fd[2], int backup[2])
 		ft_double_free(g_argv_p);
 		return (FALSE);
 	}
-	if (!ft_strcmp(g_argv_p[0], "echo"))
-		echo(ft_strslen(g_argv_p), g_argv_p, g_envp);
-	if (!ft_strcmp(g_argv_p[0], "env"))
-		env(ft_strslen(g_argv_p), g_argv_p, g_envp);
-	if (!ft_strcmp(g_argv_p[0], "pwd"))
-		pwd(ft_strslen(g_argv_p), g_argv_p, g_envp);
-	if (!ft_strcmp(g_argv_p[0], "cd"))
-		cd(g_argv_p[1]);
-	if (!ft_strcmp(g_argv_p[0], "export"))
-		export(g_argv_p);
-	if (!ft_strcmp(g_argv_p[0], "unset"))
-		unset(g_argv_p);
-	if (!ft_strcmp(g_argv_p[0], "exit"))
-		ft_exit();
+	work2();
 	ft_double_free(g_argv_p);
 	return (TRUE);
 }
@@ -45,7 +50,7 @@ int single(char **cmd)
 	g_argv = NULL;
 	if (!(g_argv = redirection(cmd, fd)))
 		return (FALSE);
-	if (!work(g_argv, fd, backup))
+	if (!single_work(g_argv, fd, backup))
 	{
 		ft_double_free(g_argv);
 		return (FALSE);

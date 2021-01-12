@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+static void arr_init(char str[255])
+{
+	int	i;
+
+	i = -1;
+	while (++i < 255)
+		str[i] = 0;
+}
+
 int global_init()
 {
 	g_last_ret = 0;
@@ -41,6 +50,7 @@ int main(int argc, char *argv[], char *envp[])
 	char	str[255];
 	int		i;
 
+	arr_init(str);
 	sig_int();
 	global_init();
 	g_envp = init_envp(envp);

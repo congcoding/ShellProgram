@@ -2,17 +2,20 @@
 
 char	*single_alloc(int len)
 {
-	char *alloc;
+	char	*alloc;
+	int		i;
 
 	if (!(alloc = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
+	while (++i < len + 1)
+		alloc[i] = '\0';
 	return (alloc);
 }
 
 char	**double_alloc(int len)
 {
-	char **alloc;
-	int i;
+	char	**alloc;
+	int		i;
 	
 	if (!(alloc = malloc(sizeof(char *) * (len + 1))))
 		return (NULL);

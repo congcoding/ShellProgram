@@ -1,10 +1,11 @@
 TARGET = minishell
 HEADER = -I ./Header/
 SRC = ./main.c	\
-		./srcs/Argv/*.c	\
+		./srcs/Redirection/*.c	\
 		./srcs/builtin/*/*.c \
 		./srcs/Parser/*.c \
 		./srcs/Shell/*.c \
+		./srcs/Shell/multi/*.c \
 		./srcs/external/Echo/echo.c \
 		./srcs/external/Env/env.c \
 		./srcs/external/Pwd/pwd.c
