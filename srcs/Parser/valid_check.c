@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:17:28 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 18:16:49 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:27:04 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		is_token_check(char **token)
 {
 	if (!ft_strcmp(*(token + 1), "|") || !ft_strcmp(*(token + 1), ";")
 	|| !ft_strcmp(*(token + 1), ">") || !ft_strcmp(*(token + 1), "<")
-	|| !ft_strcmp(*(token + 1), ">>") || !*(token + 1))
+	|| !ft_strcmp(*(token + 1), ">>"))
 	{
 		ft_write(2, "syntax error near unexpected token `");
 		ft_write(2, *token);
@@ -35,7 +35,7 @@ int		redi_check(char **input)
 		if (!ft_strcmp(*(input + 1), ">") || !ft_strcmp(*(input + 1), "<")
 		|| !ft_strcmp(*(input + 1), ">>"))
 		{
-			ft_write_n(2, "syntax error near unexpected token `>\'");
+			ft_write_n(2, "syntax error near unexpected token `<\'");
 			g_last_ret = 2;
 		}
 		else if (!*(input + 1))
@@ -59,6 +59,14 @@ int		redi_check(char **input)
 
 int		input_check(char **input)
 {
+	if ((!ft_strcmp(*input, ";") || !ft_strcmp(*input, "|"))
+		&& ft_strslen(input) == 1)
+	{
+		ft_write(2, "syntax error near unexpected token ");
+		ft_write_n(2, *input);
+		g_last_ret = 2;
+		return (FALSE);
+	}
 	while (*input)
 	{
 		if (!redi_check(input))
