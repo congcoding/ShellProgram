@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:52:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 16:30:45 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:07:53 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,45 +29,6 @@ char	**sep_space(char *line)
 	}
 	cut[++j] = i;
 	return (cutting(line, cut, j));
-}
-
-int		is_token_check(char **token)
-{
-	if (!ft_strcmp(*(token + 1), "|") || !ft_strcmp(*(token + 1), ";"))
-	{
-		ft_write(2, "syntax error near unexpected token ");
-		ft_write_n(2, *token);
-		g_last_ret = 2;
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
-int		input_check(char **input)
-{
-	if ((!ft_strcmp(*input, ";") || !ft_strcmp(*input, "|"))
-		&& ft_strslen(input) == 1)
-	{
-		ft_write(2, "syntax error near unexpected token ");
-		ft_write_n(2, *input);
-		g_last_ret = 2;
-		return (FALSE);
-	}
-	while (*input)
-	{
-		if ((!ft_strcmp(*input, ">") || !ft_strcmp(*input, "<")
-		|| !ft_strcmp(*input, ">>")) && !*(input + 1))
-		{
-			ft_write_n(2, "syntax error near unexpected token \'newline\'");
-			g_last_ret = 2;
-			return (FALSE);
-		}
-		if (!strcmp(*input, ";") || !strcmp(*input, "|"))
-			if (!is_token_check(input))
-				return (FALSE);
-		input++;
-	}
-	return (TRUE);
 }
 
 int		pre_parsing(char *line, char ***input)

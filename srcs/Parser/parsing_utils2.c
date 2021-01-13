@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:53:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 13:57:11 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:08:06 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*space_line(char *line)
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if (quotes(line, i) == 0 && line[i] == '>')
+			if (quotes(line, i) == 0 && line [i - 1] == '>' && line[i] == '>')
 				new[j++] = line[i++];
 			new[j++] = ' ';
 		}

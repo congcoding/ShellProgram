@@ -34,6 +34,7 @@ SRC = 	./srcs/library/Lib/ft_alloc.c \
 		./srcs/Parser/parsing.c \
 		./srcs/Parser/parsing_utils.c \
 		./srcs/Parser/parsing_utils2.c \
+		./srcs/Parser/valid_check.c \
 		\
 		./srcs/Shell/multi/multi.c \
 		./srcs/Shell/multi/multi_utils.c \
@@ -54,10 +55,10 @@ FLAG = -Wall -Werror -Wextra
 all : $(TARGET)
 
 $(TARGET) : $(OBJS)
-	gcc $(FLAG) -o $(TARGET) $(OBJS) $(HEADER)
+	gcc $(FLAG) -o $(TARGET) $(OBJS) $(HEADER) > /dev/null
 
 $(OBJS) : %.o : %.c
-	gcc $(FLAG) -c $< -o $@ $(HEADER)
+	gcc $(FLAG) -c $< -o $@ $(HEADER) > /dev/null
 
 clean :
 	rm -rf $(OBJS)
