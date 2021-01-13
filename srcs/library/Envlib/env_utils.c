@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 13:25:14 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 13:31:24 by seolim           ###   ########.fr       */
+/*   Created: 2021/01/13 13:38:44 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 17:00:32 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "env.h"
 
-char	*ft_strjoin(char **strs, char c)
+char		**key_value_parse(char *env_string)
 {
-	char	*str;
-	int		total_len;
-	int		strs_len;
+	char	**key_value;
 	int		i;
-	int		j;
 
-	strs_len = ft_strslen(strs);
-	total_len = 0;
-	i = -1;
-	while (++i < strs_len)
-		total_len += ft_strlen(strs[i]);
-	if (!(str = malloc(sizeof(char) * (total_len + strs_len))))
+	if (!(key_value = double_alloc(2)))
 		return (NULL);
 	i = -1;
-	total_len = -1;
-	while (++i < strs_len)
+	while (++i < ft_strlen(env_string))
 	{
-		j = -1;
-		while (strs[i][++j])
-			str[++total_len] = strs[i][j];
-		str[++total_len] = c;
+		if ((env_string)[i] == '=')
+		{
+			if (!(key_value[0] = ft_strndup(env_string, i)))
+				return (NULL);
+			if (!(key_value[1] = ft_strdup(env_string + i + 1)))
+				return (NULL);
+			break ;
+		}
 	}
-	str[total_len] = 0;
-	return (str);
+	key_value[2] = NULL;
+	return (key_value);
 }

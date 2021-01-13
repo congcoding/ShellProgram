@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 13:46:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 14:47:13 by seolim           ###   ########.fr       */
+/*   Created: 2020/07/01 10:29:13 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 15:59:19 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "get_next_line.h"
 
-static int	valid_arg(char *env_string)
+int		get_next_line(int fd, char **line)
 {
-	int	i;
-
-	i = -1;
-	while (env_string[++i])
-		if (env_string[i] == '=')
-			return (TRUE);
-	return (FALSE);
-}
-
-int			export(char *argv[])
-{
+	char	bufs[256];
+	char	buf;
+	int		len;
 	int		i;
 
-	i = 0;
-	while (argv[++i])
+	i = -1;
+	while (TRUE)
 	{
-		if (!valid_arg(argv[i]))
-			continue;
-		if (set_env(g_envp, argv[i]) == FALSE)
-			add_env(&g_envp, argv[i]);
+		len = read(fd, &buf, 1);
+		if (len == 0)
+			return (0);
+		if (buf == '\n')
+			break ;
+		bufs[++i] = buf;
 	}
-	g_last_ret = 0;
-	return (0);
+	bufs[++i] = 0;
+	*line = ft_strdup(bufs);
+	return (1);
 }

@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 13:46:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 14:47:13 by seolim           ###   ########.fr       */
+/*   Created: 2020/07/01 10:28:10 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 15:59:27 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include "lib.h"
 
-static int	valid_arg(char *env_string)
-{
-	int	i;
+int		get_next_line(int fd, char **line);
 
-	i = -1;
-	while (env_string[++i])
-		if (env_string[i] == '=')
-			return (TRUE);
-	return (FALSE);
-}
-
-int			export(char *argv[])
-{
-	int		i;
-
-	i = 0;
-	while (argv[++i])
-	{
-		if (!valid_arg(argv[i]))
-			continue;
-		if (set_env(g_envp, argv[i]) == FALSE)
-			add_env(&g_envp, argv[i]);
-	}
-	g_last_ret = 0;
-	return (0);
-}
+#endif

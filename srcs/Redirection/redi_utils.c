@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redi_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 13:57:43 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 16:02:28 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	std_backup(int fd[2], int backup[2])
@@ -11,7 +23,7 @@ void	std_backup(int fd[2], int backup[2])
 		close(fd[0]);
 	}
 	if (fd[1] != 1)
-	{		
+	{
 		dup2(1, backup[1]);
 		dup2(fd[1], 1);
 		close(fd[1]);
@@ -30,12 +42,12 @@ int		is_cmd(char *cmd)
 {
 	if (!strcmp(cmd, "echo") || !strcmp(cmd, "cd")
 		|| !strcmp(cmd, "pwd") || !strcmp(cmd, "export")
-		|| !strcmp(cmd, "unset")|| !strcmp(cmd, "env")
+		|| !strcmp(cmd, "unset") || !strcmp(cmd, "env")
 		|| !strcmp(cmd, "exit"))
 		return (TRUE);
 	else
 	{
-		g_last_ret = 3; //(normally 127)
+		g_last_ret = 127;
 		ft_write(2, cmd);
 		ft_write_n(2, " : command not found");
 		return (FALSE);

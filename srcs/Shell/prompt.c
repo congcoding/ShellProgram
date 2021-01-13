@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 17:03:38 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int		prompt(char str[255])
+int		prompt(char **line)
 {
-	int i;
+	int flag;
 
 	ft_write(1, "$> ");
-	read(0, str, 255);
-	i = -1;
-	while(str[++i] != '\n')
-		;
-	str[i] = 0;
+	if ((flag = get_next_line(0, line)) == 0)
+	{
+		ft_write_n(1, "^D");
+		return (1);
+	}
+	return (0);
 }

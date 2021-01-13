@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   argv_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 13:51:51 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 16:01:29 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*get_key(char *arg, int *idx)
@@ -11,7 +23,7 @@ static char	*get_key(char *arg, int *idx)
 		if (ft_strchr("<>|;\"\'\\ ", arg[i]))
 		{
 			key = ft_strndup(arg + *idx, i - *idx);
-			*idx =  i - 1;
+			*idx = i - 1;
 			return (key);
 		}
 		i++;
@@ -21,10 +33,11 @@ static char	*get_key(char *arg, int *idx)
 	return (key);
 }
 
-static char	enving(char *arg, char *new, int *idx, int *jdx)
+static void	enving(char *arg, char *new, int *idx, int *jdx)
 {
 	char	*key;
 	char	*env;
+	char	*num;
 	int		i;
 	int		j;
 
@@ -32,13 +45,17 @@ static char	enving(char *arg, char *new, int *idx, int *jdx)
 	j = *jdx;
 	if (arg[i + 1] == '?')
 	{
-		new[++j] = g_last_ret + '0';
+		num = ft_itoa(g_last_ret);
+		++j;
+		j += ft_strcpy(new + j, num);
+		free(num);
 		i++;
 	}
 	i++;
 	key = get_key(arg, &i);
 	env = get_env(g_envp, key);
-	j += ft_strcpy(new + ++j, env) - 1;
+	++j;
+	j += ft_strcpy(new + j, env) - 1;
 	free(key);
 	free(env);
 	*idx = i;
@@ -53,7 +70,7 @@ char		*argv_parsing(char *arg)
 
 	i = -1;
 	j = -1;
-	new = malloc(1000); // TODO : have to change
+	new = malloc(1000);
 	while (arg[++i])
 	{
 		if (is_out(arg, i))

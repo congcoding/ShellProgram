@@ -1,15 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 14:08:14 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 17:04:11 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void arr_init(char str[255])
-{
-	int	i;
-
-	i = -1;
-	while (++i < 255)
-		str[i] = 0;
-}
-
-int global_init()
+void		global_init(void)
 {
 	g_last_ret = 0;
 	g_pipe_cmd = NULL;
@@ -20,7 +23,7 @@ int global_init()
 	g_argv_p = NULL;
 }
 
-int shell(char **input)
+void		shell(char **input)
 {
 	int		start;
 	int		i;
@@ -31,7 +34,7 @@ int shell(char **input)
 	{
 		if (!strcmp(input[i], ";"))
 		{
-			g_cmd = ft_strsndup(input + start, i);
+			g_cmd = ft_strsndup(input + start, i - start);
 			start = i + 1;
 			piping(g_cmd);
 			ft_double_free(g_cmd);
@@ -45,21 +48,21 @@ int shell(char **input)
 	}
 }
 
-int main(int argc, char *argv[], char *envp[])
+int			main(int argc, char *argv[], char *envp[])
 {
-	char	str[255];
-	int		i;
+	char	*line;
 
-	arr_init(str);
+	argc++;
+	argv++;
 	sig_int();
 	global_init();
 	g_envp = init_envp(envp);
 	while (TRUE)
-	{	
-		prompt(str);
-		if (!pre_parsing(str, &g_input))
+	{
+		if (prompt(&line))
 			continue;
-		i = -1;
+		if (!pre_parsing(line, &g_input))
+			continue;
 		shell(g_input);
 		ft_double_free(g_input);
 	}

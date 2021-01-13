@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   single.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 14:55:24 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int work2()
+static void	work2(void)
 {
 	if (!ft_strcmp(g_argv_p[0], "echo"))
 		echo(ft_strslen(g_argv_p), g_argv_p, g_envp);
@@ -18,7 +30,7 @@ static int work2()
 		ft_exit();
 }
 
-static int single_work(char **argv, int fd[2], int backup[2])
+static int	single_work(char **argv, int fd[2], int backup[2])
 {
 	int		i;
 
@@ -39,11 +51,10 @@ static int single_work(char **argv, int fd[2], int backup[2])
 	return (TRUE);
 }
 
-int single(char **cmd)
+int			single(char **cmd)
 {
 	int		fd[2];
 	int		backup[2];
-	
 
 	fd[0] = 0;
 	fd[1] = 1;

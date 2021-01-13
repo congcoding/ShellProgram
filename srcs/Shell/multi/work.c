@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   work.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 16:27:29 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int work3(char **argv_p)
+static void	work3(char **argv_p)
 {
 	if (!ft_strcmp(argv_p[0], "echo"))
 		echo(ft_strslen(argv_p), argv_p, g_envp);
@@ -18,37 +30,41 @@ static int work3(char **argv_p)
 		ft_exit();
 }
 
-static int work2(char **argv, int fd[2], int backup[2])
+static int	work2(char **argv, int fd[2], int backup[2])
 {
-	char	**argv_p;
 	int		i;
 
-	if (!(argv_p = double_alloc(ft_strslen(argv))))
+	if (!(g_argv_p = double_alloc(ft_strslen(argv))))
 		return (FALSE);
 	i = -1;
 	while (argv[++i])
-		argv_p[i] = argv_parsing(argv[i]);
+		g_argv_p[i] = argv_parsing(argv[i]);
 	std_backup(fd, backup);
-	if (!is_cmd(argv_p[0]))
+	if (!is_cmd(g_argv_p[0]))
+	{
+		ft_double_free(g_argv_p);
 		return (FALSE);
-	work3(argv_p);
-	ft_double_free(argv_p);
+	}
+	work3(g_argv_p);
+	ft_double_free(g_argv_p);
 	return (TRUE);
 }
 
-int work(char **cmd)
+int			work(char **cmd)
 {
-	char	**argv;
 	int		fd[2];
 	int		backup[2];
-	
+
 	fd[0] = 0;
 	fd[1] = 1;
-	if (!(argv = redirection(cmd, fd)))
+	if (!(g_argv = redirection(cmd, fd)))
 		return (FALSE);
-	if (!work2(argv, fd, backup))
+	if (!work2(g_argv, fd, backup))
+	{
+		ft_double_free(g_argv);
 		return (FALSE);
-	ft_double_free(argv);
+	}
+	ft_double_free(g_argv);
 	std_reset(fd, backup);
 	return (TRUE);
 }

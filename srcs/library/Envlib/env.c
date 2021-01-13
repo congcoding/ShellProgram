@@ -1,27 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 13:37:55 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 16:51:09 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
-
-char		**key_value_parse(char *env_string)
-{
-	char	**key_value;
-	int		i;
-
-	if (!(key_value = double_alloc(2)))
-		exit(1); // errorno process;
-	i = -1;
-	while (++i < ft_strlen(env_string))
-	{
-		if ((env_string)[i] == '=')
-		{
-			if (!(key_value[0] = ft_strndup(env_string, i)))
-				exit(1); // errorno process;
-			if (!(key_value[1] = ft_strdup(env_string + i + 1)))
-				exit(1); // errorno process;
-			break;
-		}
-	}
-	key_value[2] = NULL;
-	return (key_value);
-}
 
 char		**init_envp(char *old_envp[])
 {
@@ -31,12 +20,12 @@ char		**init_envp(char *old_envp[])
 
 	len = ft_strslen(old_envp);
 	if (!(envp = double_alloc(len)))
-		exit(1); // errorno process
+		return (NULL);
 	i = -1;
 	while (++i < len)
 	{
 		if (!(envp[i] = ft_strdup(old_envp[i])))
-			exit(1); // errorno process
+			return (NULL);
 	}
 	envp[i] = NULL;
 	return (envp);
@@ -44,7 +33,6 @@ char		**init_envp(char *old_envp[])
 
 char		*get_env(char *envp[], char *key)
 {
-	char	*env;
 	int		i;
 
 	if (key[0] == 0 || !key)
@@ -70,7 +58,7 @@ int			set_env(char *envp[], char *env_string)
 
 	key_value = key_value_parse(env_string);
 	while (*envp)
-	{		
+	{
 		i = -1;
 		while (++i < ft_strlen(*envp))
 		{
@@ -79,8 +67,8 @@ int			set_env(char *envp[], char *env_string)
 				if (!ft_strncmp(*envp, key_value[0], i - 1))
 				{
 					free(*envp);
-					if(!(*envp = ft_strdup(env_string)))
-						exit(1); // errno process;
+					if (!(*envp = ft_strdup(env_string)))
+						return (FALSE);
 					ft_double_free(key_value);
 					return (TRUE);
 				}
@@ -100,7 +88,7 @@ int			add_env(char ***envp, char *env_string)
 
 	len = ft_strslen(*envp);
 	if (!(new_envp = double_alloc(len + 1)))
-		return (ERROR); // errno process
+		return (FALSE);
 	i = -1;
 	while (++i < len)
 		new_envp[i] = ft_strdup((*envp)[i]);
@@ -117,14 +105,12 @@ int			delete_env(char ***envp, char *key)
 	char	**key_value;
 	int		i;
 	int		j;
-	int		len;
 
-	len = ft_strslen(*envp);
-	if (!(new_envp = double_alloc(len)))
-		return (ERROR); // errno process
+	if (!(new_envp = double_alloc(ft_strslen(*envp))))
+		return (FALSE);
 	i = -1;
 	j = -1;
-	while (++i < len)
+	while (++i < ft_strslen(*envp))
 	{
 		key_value = key_value_parse((*envp)[i]);
 		if (!ft_strcmp(key_value[0], key))

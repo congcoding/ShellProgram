@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   multi.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 14:00:59 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/13 16:16:53 by seolim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int child(int fd_in, char ***pipe_cmd, int fd[2])
+static void	child(int fd_in, char ***pipe_cmd, int fd[2])
 {
 	dup2(fd_in, 0);
 	if (*(pipe_cmd + 1))
@@ -10,7 +22,7 @@ static int child(int fd_in, char ***pipe_cmd, int fd[2])
 	child_exit();
 }
 
-int pipe_processing(char ***pipe_cmd)
+void		pipe_processing(char ***pipe_cmd)
 {
 	int fd[2];
 	int fd_in;
@@ -37,7 +49,7 @@ int pipe_processing(char ***pipe_cmd)
 	}
 }
 
-int multi(char **input)
+int			multi(char **input)
 {
 	int		start;
 	int		i;
@@ -53,7 +65,7 @@ int multi(char **input)
 	{
 		if (!strcmp(input[i], "|"))
 		{
-			g_pipe_cmd[++j] = ft_strsndup(input + start, i);
+			g_pipe_cmd[++j] = ft_strsndup(input + start, i - start);
 			start = i + 1;
 		}
 	}
@@ -61,4 +73,6 @@ int multi(char **input)
 		g_pipe_cmd[++j] = ft_strsndup(input + start, i);
 	g_pipe_cmd[++j] = NULL;
 	pipe_processing(g_pipe_cmd);
+	pipe_cmd_free();
+	return (0);
 }
