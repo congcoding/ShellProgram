@@ -1,6 +1,6 @@
 #include "env.h"
 
-static char	**key_value_parse(char *env_string)
+char		**key_value_parse(char *env_string)
 {
 	char	**key_value;
 	int		i;
