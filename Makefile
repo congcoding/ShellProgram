@@ -1,4 +1,4 @@
-TARGET = minishell
+NAME = minishell
 HEADER = -I ./Header/
 SRC = 	./srcs/library/Lib/ft_alloc.c \
 		./srcs/library/Lib/ft_free.c \
@@ -52,10 +52,10 @@ SRC = 	./srcs/library/Lib/ft_alloc.c \
 OBJS 		=	$(SRC:.c=.o)
 FLAG = -Wall -Werror -Wextra
 
-all : $(TARGET)
+all : $(NAME)
 
-$(TARGET) : $(OBJS)
-	gcc $(FLAG) -o $(TARGET) $(OBJS) $(HEADER) > /dev/null
+$(NAME) : $(OBJS)
+	gcc $(FLAG) -o $(NAME) $(OBJS) $(HEADER) > /dev/null
 
 $(OBJS) : %.o : %.c
 	gcc $(FLAG) -c $< -o $@ $(HEADER) > /dev/null
@@ -64,6 +64,6 @@ clean :
 	rm -rf $(OBJS)
 
 fclean :
-	rm -rf $(TARGET)
+	rm -rf $(NAME)
 
 re : fclean all
