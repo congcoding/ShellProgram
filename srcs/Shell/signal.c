@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:29 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 19:29:16 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/13 19:32:25 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void		sig_int(void)
 {
 	signal(SIGINT, handle);
 	signal(SIGTSTP, handle);
-	signal(SIGQUIT, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }
