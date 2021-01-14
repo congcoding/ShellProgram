@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:02:12 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:31:59 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static void path(char **argv)
 	char	*cmd;
 	char	*path_env;
 	char	**paths;
+	int		i;
 
 	path_env = get_env(g_envp, "PATH");
 	paths = ft_split(path_env, ':');
-	int i = -1;
+	i = -1;
 	while (paths[++i])
 	{
 		temp = ft_strappend(paths[i], "/");
@@ -33,7 +34,7 @@ static void path(char **argv)
 	exit(127);
 }
 
-static void external(char **argv)
+static void	external(char **argv)
 {
 	int state;
 
@@ -79,13 +80,6 @@ static int	single_work(char **argv, int fd[2], int backup[2])
 	while (argv[++i])
 		g_argv_p[i] = argv_parsing(argv[i]);
 	std_backup(fd, backup);
-	/*
-	if (!is_cmd(g_argv_p[0]))
-	{
-		ft_double_free(g_argv_p);
-		return (FALSE);
-	}
-	*/
 	work2();
 	ft_double_free(g_argv_p);
 	return (TRUE);

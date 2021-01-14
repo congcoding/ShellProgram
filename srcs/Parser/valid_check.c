@@ -6,21 +6,13 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:17:28 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:20:57 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:28:55 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void error_p(char *input)
-{
-	ft_write(2, "syntax error near unexpected token `");
-	ft_write(2, input);
-	ft_write_n(2, "\'");
-	g_last_ret = 2;
-}
-
-int		is_token_check(char **token)
+int			is_token_check(char **token)
 {
 	if (!ft_strcmp(*(token + 1), "|") || !ft_strcmp(*(token + 1), ";")
 	|| !ft_strcmp(*(token + 1), ">") || !ft_strcmp(*(token + 1), "<")
@@ -32,7 +24,7 @@ int		is_token_check(char **token)
 	return (TRUE);
 }
 
-int		out_check(char **input)
+int			out_check(char **input)
 {
 	if (!ft_strcmp(*input, ">") || !ft_strcmp(*input, ">>"))
 	{
@@ -54,7 +46,7 @@ int		out_check(char **input)
 	return (TRUE);
 }
 
-int		in_check(char **input)
+int			in_check(char **input)
 {
 	if (!ft_strcmp(*input, "<"))
 	{
@@ -75,7 +67,7 @@ int		in_check(char **input)
 	return (TRUE);
 }
 
-int		redi_check(char **input)
+int			redi_check(char **input)
 {
 	if (!out_check(input))
 		return (FALSE);
@@ -84,7 +76,7 @@ int		redi_check(char **input)
 	return (TRUE);
 }
 
-int		input_check(char **input)
+int			input_check(char **input)
 {
 	if ((!ft_strcmp(*input, ";") || !ft_strcmp(*input, "|")))
 	{

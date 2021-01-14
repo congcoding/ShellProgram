@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:13:38 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 15:07:56 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:29:18 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ void		pipe_cmd_free(void);
 void		std_reset(int fd[2], int backup[2]);
 void		std_reset(int fd[2], int backup[2]);
 int			is_cmd(char *cmd);
+
+void	error_p(char *input);
 
 #endif

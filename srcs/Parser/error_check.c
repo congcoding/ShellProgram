@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strappend.c                                     :+:      :+:    :+:   */
+/*   error_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 21:21:27 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:27:36 by seolim           ###   ########.fr       */
+/*   Created: 2021/01/14 17:28:29 by seolim            #+#    #+#             */
+/*   Updated: 2021/01/14 17:29:05 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "minishell.h"
 
-char	*ft_strappend(char *s1, char *s2)
+static void	error_p(char *input)
 {
-	char	*str;
-	int		i;
-	int		j;
-	int		s1_len;
-	int		s2_len;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (!(str = malloc(sizeof(char) * (s1_len + s2_len + 1))))
-		return (NULL);
-	i = -1;
-	j = -1;
-	while (++i < s1_len)
-		str[++j] = s1[i];
-	i = -1;
-	while (++i < s2_len)
-		str[++j] = s2[i];
-	return (str);
+	ft_write(2, "syntax error near unexpected token `");
+	ft_write(2, input);
+	ft_write_n(2, "\'");
+	g_last_ret = 2;
 }

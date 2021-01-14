@@ -6,22 +6,23 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 15:42:23 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:31:18 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void path(char **argv)
+static void	path(char **argv)
 {
 	char	*temp;
 	char	*cmd;
 	char	*path_env;
 	char	**paths;
+	int		i;
 
 	path_env = get_env(g_envp, "PATH");
 	paths = ft_split(path_env, ':');
-	int i = -1;
+	i= -1;
 	while (paths[++i])
 	{
 		temp = ft_strappend(paths[i], "/");
