@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 15:23:46 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:02:12 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static void path(char **argv)
 {
 	char	*temp;
 	char	*cmd;
-	char *path_env = get_env(g_envp, "PATH");
-	char **paths = ft_split(path_env, ':');
+	char	*path_env;
+	char	**paths;
+
+	path_env = get_env(g_envp, "PATH");
+	paths = ft_split(path_env, ':');
 	int i = -1;
 	while (paths[++i])
 	{
@@ -32,11 +35,17 @@ static void path(char **argv)
 
 static void external(char **argv)
 {
+	int state;
+
 	g_pid = fork();
 	if (g_pid == 0)
 		path(argv);
 	else
-		wait(NULL);
+	{
+		wait(&state);
+		g_last_ret = state / 256 == 127 ? 127 : 0;
+		g_pid = 1;
+	}
 }
 
 static void	work2(void)

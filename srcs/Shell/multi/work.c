@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 14:45:25 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:42:23 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static void path(char **argv)
 {
 	char	*temp;
 	char	*cmd;
-	char *path_env = get_env(g_envp, "PATH");
-	char **paths = ft_split(path_env, ':');
+	char	*path_env;
+	char	**paths;
+
+	path_env = get_env(g_envp, "PATH");
+	paths = ft_split(path_env, ':');
 	int i = -1;
 	while (paths[++i])
 	{
@@ -25,23 +28,26 @@ static void path(char **argv)
 		cmd = ft_strappend(temp, argv[0]);
 		execve(cmd, argv, g_envp);
 	}
+	ft_write(2, g_argv_p[0]);
+	ft_write_n(2, " : command not found");
+	exit(127);
 }
 
 static void	work3(char **argv_p)
 {
 	if (!ft_strcmp(argv_p[0], "echo"))
 		echo(ft_strslen(argv_p), argv_p, g_envp);
-	if (!ft_strcmp(argv_p[0], "env"))
+	else if (!ft_strcmp(argv_p[0], "env"))
 		env(ft_strslen(argv_p), argv_p, g_envp);
-	if (!ft_strcmp(argv_p[0], "pwd"))
+	else if (!ft_strcmp(argv_p[0], "pwd"))
 		pwd(ft_strslen(argv_p), argv_p, g_envp);
-	if (!ft_strcmp(argv_p[0], "cd"))
+	else if (!ft_strcmp(argv_p[0], "cd"))
 		cd(argv_p[1]);
-	if (!ft_strcmp(argv_p[0], "export"))
+	else if (!ft_strcmp(argv_p[0], "export"))
 		export(argv_p);
-	if (!ft_strcmp(argv_p[0], "unset"))
+	else if (!ft_strcmp(argv_p[0], "unset"))
 		unset(argv_p);
-	if (!ft_strcmp(argv_p[0], "exit"))
+	else if (!ft_strcmp(argv_p[0], "exit"))
 		ft_exit();
 	else
 		path(argv_p);
@@ -57,13 +63,6 @@ static int	work2(char **argv, int fd[2], int backup[2])
 	while (argv[++i])
 		g_argv_p[i] = argv_parsing(argv[i]);
 	std_backup(fd, backup);
-	/*
-	if (!is_cmd(g_argv_p[0]))
-	{
-		ft_double_free(g_argv_p);
-		return (FALSE);
-	}
-	*/
 	work3(g_argv_p);
 	ft_double_free(g_argv_p);
 	return (TRUE);

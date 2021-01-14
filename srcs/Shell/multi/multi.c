@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:00:59 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 16:16:53 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:01:38 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ void		pipe_processing(char ***pipe_cmd)
 {
 	int fd[2];
 	int fd_in;
-	int pid;
 	int state;
 
 	fd_in = 0;
 	while (*pipe_cmd)
 	{
 		pipe(fd);
-		pid = fork();
-		if (pid == -1)
+		g_pid = fork();
+		if (g_pid == -1)
 			ft_write_n(2, "piping error");
-		else if (pid == 0)
+		else if (g_pid == 0)
 			child(fd_in, pipe_cmd, fd);
 		else
 		{

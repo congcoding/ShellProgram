@@ -22,11 +22,13 @@ static void	handle(int signum)
 			g_pid = 1;
 			return ;
 		}
-		else
+		if (g_pid == 1)
 		{
 			ft_write_n(1, "");
 			ft_write(1, "$> ");
 		}
+		else
+			ft_write_n(1, "\b\b");
 	}
 }
 
