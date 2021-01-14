@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:16:53 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:44:23 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	path(char **argv)
 	char	**paths;
 	int		i;
 
+	execve(argv[0], argv, g_envp);
 	path_env = get_env(g_envp, "PATH");
 	paths = ft_split(path_env, ':');
 	free(path_env);
