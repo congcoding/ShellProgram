@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:32:42 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 18:54:27 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ static void	path(char **argv)
 
 	path_env = get_env(g_envp, "PATH");
 	paths = ft_split(path_env, ':');
+	free(path_env);
 	i = -1;
 	while (paths[++i])
 	{
 		temp = ft_strappend(paths[i], "/");
 		cmd = ft_strappend(temp, argv[0]);
+		free(temp);
 		execve(cmd, argv, g_envp);
+		free(cmd);
 	}
+	ft_double_free(paths);
 	ft_write(2, g_argv_p[0]);
 	ft_write_n(2, " : command not found");
 	exit(127);
