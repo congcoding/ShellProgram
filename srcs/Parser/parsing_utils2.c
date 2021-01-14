@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:53:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:30:17 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:33:03 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*space_line(char *line)
 	while (new && line[i])
 	{
 		if (quotes(line, i) != 1 && line[i] == '$' && i && line[i - 1] != '\\'
-			 && line[i + 1])
+			 && line[i + 1] && line[i + 1] != ' ')
 			new[j++] = (char)(-line[i++]);
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
