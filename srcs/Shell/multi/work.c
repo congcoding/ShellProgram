@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 18:54:27 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:17:00 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static int	work2(char **argv, int fd[2], int backup[2])
 	std_backup(fd, backup);
 	work3(g_argv_p);
 	ft_double_free(g_argv_p);
+	g_argv_p = NULL;
 	return (TRUE);
 }
 
@@ -85,9 +86,11 @@ int			work(char **cmd)
 	if (!work2(g_argv, fd, backup))
 	{
 		ft_double_free(g_argv);
+		g_argv = NULL;
 		return (FALSE);
 	}
 	ft_double_free(g_argv);
+	g_argv = NULL;
 	std_reset(fd, backup);
 	return (TRUE);
 }

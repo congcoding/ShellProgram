@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:08:14 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 15:17:18 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:17:37 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		shell(char **input)
 			start = i + 1;
 			piping(g_cmd);
 			ft_double_free(g_cmd);
+			g_cmd = NULL;
 		}
 	}
 	if (start != i)
@@ -46,6 +47,7 @@ void		shell(char **input)
 		g_cmd = ft_strsndup(input + start, i);
 		piping(g_cmd);
 		ft_double_free(g_cmd);
+		g_cmd = NULL;
 	}
 }
 
@@ -66,6 +68,7 @@ int			main(int argc, char *argv[], char *envp[])
 			continue;
 		shell(g_input);
 		ft_double_free(g_input);
+		g_input = NULL;
 	}
 	ft_double_free(g_envp);
 }
