@@ -36,6 +36,7 @@ SRC = 	./srcs/library/Lib/ft_alloc.c \
 		./srcs/Parser/parsing_utils.c \
 		./srcs/Parser/parsing_utils2.c \
 		./srcs/Parser/valid_check.c \
+		./srcs/Parser/error_check.c \
 		\
 		./srcs/Shell/multi/multi.c \
 		./srcs/Shell/multi/multi_utils.c \

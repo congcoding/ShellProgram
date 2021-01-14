@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:17:28 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:28:55 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:34:26 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			out_check(char **input)
 	if (!ft_strcmp(*input, ">") || !ft_strcmp(*input, ">>"))
 	{
 		if (!ft_strcmp(*(input + 1), ">") || !ft_strcmp(*(input + 1), ">>"))
-			error_p(input);
+			error_p(*input);
 		else if (!ft_strcmp(*(input + 1), "<"))
 			error_p("<");
 		else if (!*(input + 1))

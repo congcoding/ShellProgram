@@ -6,13 +6,13 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 17:28:29 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:29:05 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:34:05 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	error_p(char *input)
+void	error_p(char *input)
 {
 	ft_write(2, "syntax error near unexpected token `");
 	ft_write(2, input);
