@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:52:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 21:58:56 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:10:13 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		active_slash(char *line, int i)
 
 	is_slash = TRUE;
 	j = 1;
+	if (quotes(line, i) == 1)
+		return (FALSE);
 	while (i - j >= 0 && line[i - j] == '\\')
 	{
 		is_slash = !is_slash;
@@ -48,9 +50,9 @@ int		quotes(char *line, int idx)
 			quote = 0;
 		i++;
 	}
-	if (quote == 1 && line[idx] == '\'')
+	if (quote == 1 && line[i] == '\'')
 		quote = 0;
-	if (quote == 2 && line[idx] == '\"')
+	if (quote == 2 && line[i] == '\"')
 		quote = 0;
 	return (quote);
 }
@@ -79,8 +81,8 @@ int		is_out(char *line, int i)
 	}
 	else if (ft_strchr("\'\"\\", line[i]) && quotes(line, i) == 0)
 		return (1);
-	else if (ft_strchr("\'\"\\", line[i]) && quotes(line, i) == 2
-		&& ft_strchr("\"\\", line[i + 1]))
+	else if (ft_strchr("\\", line[i]) && quotes(line, i) == 2
+		&& ft_strchr("\"\\$`", line[i + 1]))
 		return (1);
 	else
 		return (0);

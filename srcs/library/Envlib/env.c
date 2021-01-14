@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:37:55 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 16:51:09 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:42:05 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char		**init_envp(char *old_envp[])
 
 char		*get_env(char *envp[], char *key)
 {
+	char	*env_key;
 	int		i;
 
 	if (key[0] == 0 || !key)
@@ -41,11 +42,17 @@ char		*get_env(char *envp[], char *key)
 	{
 		i = -1;
 		while (++i < ft_strlen(*envp))
-		{
 			if ((*envp)[i] == '=')
-				if (!ft_strncmp(*envp, key, i - 1))
+			{
+				env_key = ft_strndup(*envp, i);
+				if (!ft_strcmp(env_key, key))
+				{
+					free(env_key);
 					return (ft_strdup(*envp + i + 1));
-		}
+				}
+				free(env_key);
+				break ;
+			}
 		envp++;
 	}
 	return (ft_strdup(""));

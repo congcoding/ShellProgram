@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:03:56 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:19:29 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:51:55 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	ft_exit(void)
 		ft_double_free(g_cmd);
 	ft_double_free(g_envp);
 	pipe_cmd_free();
-	exit(0);
+	exit(g_last_ret);
 }

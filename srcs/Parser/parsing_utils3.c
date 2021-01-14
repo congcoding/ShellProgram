@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 21:08:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 21:10:38 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 23:08:52 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		active_dallarnt(char *line, int i)
 
 int		is_env(char *line, int i)
 {
-	if (quotes(line, i) != 1 && line[i] == '$' && i && line[i - 1] != '\\'
+	if (quotes(line, i) != 1 && line[i] == '$' && i && 
+		(line[i - 1] != '\\' || (line[i - 1] == '\\' && !active_slash(line, i - 1)))
 		&& line[i + 1] && line[i + 1] != ' ' && line[i + 1] != ';'
 		&& active_dallarnt(line, i))
 	{
