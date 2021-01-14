@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:08:14 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 17:04:11 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:17:18 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		global_init(void)
 	g_cmd = NULL;
 	g_argv = NULL;
 	g_argv_p = NULL;
+	g_pid = 1;
 }
 
 void		shell(char **input)

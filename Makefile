@@ -16,6 +16,7 @@ SRC = 	./srcs/library/Lib/ft_alloc.c \
 		./srcs/library/Lib/ft_strtrim.c \
 		./srcs/library/Lib/ft_write.c \
 		./srcs/library/Lib/ft_write_n.c \
+		./srcs/library/Lib/ft_strappend.c \
 		\
 		./srcs/library/Envlib/env.c \
 		./srcs/library/Envlib/env_utils.c \

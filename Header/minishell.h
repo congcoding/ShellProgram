@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:13:38 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 16:17:21 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:07:56 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "get_next_line.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <errno.h>
 # include <string.h>
 # include <signal.h>
@@ -30,6 +31,7 @@ char		**g_cmd;
 char		***g_pipe_cmd;
 char		**g_argv;
 char		**g_argv_p;
+int			g_pid;
 
 int			prompt(char **line);
 char		**redirection(char **cmd, int fd[2]);

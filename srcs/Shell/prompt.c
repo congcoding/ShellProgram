@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 17:03:38 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 15:27:59 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		prompt(char **line)
 	ft_write(1, "$> ");
 	if ((flag = get_next_line(0, line)) == 0)
 	{
-		ft_write_n(1, "^D");
-		return (1);
+		ft_write_n(1, "exit");
+		ft_exit();
 	}
 	return (0);
 }

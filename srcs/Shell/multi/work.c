@@ -6,11 +6,26 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 16:27:29 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 14:45:25 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void path(char **argv)
+{
+	char	*temp;
+	char	*cmd;
+	char *path_env = get_env(g_envp, "PATH");
+	char **paths = ft_split(path_env, ':');
+	int i = -1;
+	while (paths[++i])
+	{
+		temp = ft_strappend(paths[i], "/");
+		cmd = ft_strappend(temp, argv[0]);
+		execve(cmd, argv, g_envp);
+	}
+}
 
 static void	work3(char **argv_p)
 {
@@ -28,6 +43,8 @@ static void	work3(char **argv_p)
 		unset(argv_p);
 	if (!ft_strcmp(argv_p[0], "exit"))
 		ft_exit();
+	else
+		path(argv_p);
 }
 
 static int	work2(char **argv, int fd[2], int backup[2])
@@ -40,11 +57,13 @@ static int	work2(char **argv, int fd[2], int backup[2])
 	while (argv[++i])
 		g_argv_p[i] = argv_parsing(argv[i]);
 	std_backup(fd, backup);
+	/*
 	if (!is_cmd(g_argv_p[0]))
 	{
 		ft_double_free(g_argv_p);
 		return (FALSE);
 	}
+	*/
 	work3(g_argv_p);
 	ft_double_free(g_argv_p);
 	return (TRUE);
