@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:52:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 20:01:54 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:08:05 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ char	**sep_space(char *line)
 
 int		pre_parsing(char *line, char ***input)
 {
-	char *s_line;
+	char	*s_line;
 
 	if (!valid_quote(line))
 		return (FALSE);
 	s_line = space_line(line);
-	printf("%s\n", s_line);
 	free(line);
 	*input = sep_space(s_line);
 	free(s_line);

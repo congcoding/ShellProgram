@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:13:55 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 17:47:07 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:09:24 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			is_out(char *line, int i);
 int			is_sep(char *line, int i);
 int			quotes(char *line, int idx);
 int			active_slash(char *line, int i);
+int			is_env(char *line, int i);
 
 int			is_sep_space(char *line, int i);
 char		**cutting(char *str, int *cut, int len);
