@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:52:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 18:01:20 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:58:56 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		quotes(char *line, int idx)
 	quote = 0;
 	while (line[i] && i != idx)
 	{
-		if (i > 0 && line[i - 1] == '\\')
+		if (i > 0 && line[i - 1] == '\\' && active_slash(line, i - 1))
 			;
 		else if (quote == 0 && line[i] == '\'')
 			quote = 1;
@@ -78,6 +78,9 @@ int		is_out(char *line, int i)
 		return (0);
 	}
 	else if (ft_strchr("\'\"\\", line[i]) && quotes(line, i) == 0)
+		return (1);
+	else if (ft_strchr("\'\"\\", line[i]) && quotes(line, i) == 2
+		&& ft_strchr("\"\\", line[i + 1]))
 		return (1);
 	else
 		return (0);
