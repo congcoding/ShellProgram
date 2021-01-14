@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:00:59 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:01:38 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:19:29 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void		pipe_processing(char ***pipe_cmd)
 		else
 		{
 			wait(&state);
+			g_pid = 1;
 			g_last_ret = state / 256;
 			close(fd[1]);
 			fd_in = fd[0];
