@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:31:18 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:32:42 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	path(char **argv)
 
 	path_env = get_env(g_envp, "PATH");
 	paths = ft_split(path_env, ':');
-	i= -1;
+	i = -1;
 	while (paths[++i])
 	{
 		temp = ft_strappend(paths[i], "/");

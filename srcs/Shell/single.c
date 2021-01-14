@@ -6,13 +6,13 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:31:59 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 17:32:49 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void path(char **argv)
+static void	path(char **argv)
 {
 	char	*temp;
 	char	*cmd;
