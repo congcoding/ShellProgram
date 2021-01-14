@@ -6,11 +6,46 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:53:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:38:28 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 21:05:44 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		active_dallarnt(char *line, int i)
+{
+	int count;
+
+	count = 1;
+	while (i > 0)
+	{
+		if (line[--i] == '$')
+			count++;
+		else
+			break;
+	}
+	return (count % 2 == 1 ? TRUE : FALSE);
+}
+
+int		is_env(char *line, int i)
+{
+	if (quotes(line, i) != 1 && line[i] == '$' && i && line[i - 1] != '\\'
+		&& line[i + 1] && line[i + 1] != ' ' && line[i + 1] != ';'
+		&& active_dallarnt(line, i))
+	{
+		if (line[i + 1] == '\"')
+		{
+			if (quotes(line, i) == 0)
+				return (TRUE);
+			else if (quotes(line, i) == 2)
+				return (FALSE);
+		}
+		return (TRUE);
+	}
+	if (line[i] == '$' && i == 0 && line[i + 1])
+		return (TRUE);
+	return (FALSE);
+}
 
 char	*space_line(char *line)
 {
@@ -23,8 +58,7 @@ char	*space_line(char *line)
 	new = space_alloc(line);
 	while (new && line[i])
 	{
-		if (quotes(line, i) != 1 && line[i] == '$' && i && line[i - 1] != '\\'
-			&& line[i + 1] && line[i + 1] != ' ' && line[i + 1] != ';')
+		if (is_env(line, i))
 			new[j++] = (char)(-line[i++]);
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
