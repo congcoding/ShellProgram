@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:21:27 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:27:36 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/14 18:13:13 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char	*ft_strappend(char *s1, char *s2)
 	i = -1;
 	while (++i < s2_len)
 		str[++j] = s2[i];
+	str[++j] = 0;
 	return (str);
 }
