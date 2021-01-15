@@ -6,11 +6,24 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:48:37 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 23:17:20 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:52:00 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	option_check(char *argv)
+{
+	int i;
+
+	i = 1;
+	while (argv[++i])
+	{
+		if (argv[i] != 'n')
+			return (FALSE);
+	}
+	return (TRUE);
+}
 
 int	echo(int argc, char *argv[], char *envp[])
 {
@@ -20,9 +33,12 @@ int	echo(int argc, char *argv[], char *envp[])
 	envp++;
 	option = FALSE;
 	i = 1;
-	while (!ft_strcmp(argv[i], "-n"))
+	while (!ft_strncmp(argv[i], "-n", 1))
 	{
-		option = TRUE;
+		if (option_check(argv[i]))
+			option = TRUE;
+		else
+			break;
 		i++;
 	}
 	while (i < argc - 1)

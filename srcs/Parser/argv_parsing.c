@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:51:51 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 23:02:06 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:36:16 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*get_key(char *arg, int *idx)
 	i = *idx;
 	while (arg[i])
 	{
-		if (ft_strchr("<>|;\"\'\\ -*", arg[i]) || arg[i] == -'$')
+		if (ft_strchr("<>|;\"\'\\ -*#", arg[i]) || arg[i] == -'$')
 		{
 			key = ft_strndup(arg + *idx, i - *idx);
 			*idx = i - 1;
@@ -41,22 +41,21 @@ static void	special_env(char *new, char special, int *idx, int *jdx)
 
 	i = *idx;
 	j = *jdx;
-	if (special == '$')
+	if (special == '$' || special == '?' || special == '#')
 	{
-		num = ft_itoa(g_pid);
+		if (special == '$')
+			num = ft_itoa(g_pid);
+		else if (special == '?')
+			num = ft_itoa(g_last_ret);
+		else
+			num = ft_itoa(0);
 		++j;
 		j += ft_strcpy(new + j, num) - 1;
 		free(num);
 		i++;
 	}
-	if (special == '?')
-	{
-		num = ft_itoa(g_last_ret);
-		++j;
-		j += ft_strcpy(new + j, num) - 1;
-		free(num);
+	else if (special == '@' || ft_isnum(special) || special == '*')
 		i++;
-	}
 	*idx = i;
 	*jdx = j;
 }
@@ -70,7 +69,9 @@ static void	enving(char *arg, char *new, int *idx, int *jdx)
 
 	i = *idx;
 	j = *jdx;
-	if (arg[i + 1] == '$' || arg[i + 1] == '?')
+	if (arg[i + 1] == '$' || arg[i + 1] == '?'
+		|| arg[i + 1] == '#' || arg[i + 1] == '@'
+		|| arg[i + 1] == '*' || ft_isnum(arg[i + 1]))
 	{
 		special_env(new, arg[i + 1], &i, &j);
 		*idx = i;

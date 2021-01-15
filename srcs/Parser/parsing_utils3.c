@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 21:08:33 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 23:08:52 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:10:50 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int		is_env(char *line, int i)
 			else if (quotes(line, i) == 2)
 				return (FALSE);
 		}
+		if (ft_strchr("\%/\\", line[i + 1]))
+			return (FALSE);
 		return (TRUE);
 	}
 	if (line[i] == '$' && i == 0 && line[i + 1])
