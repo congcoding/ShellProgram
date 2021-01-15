@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:01:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:11:28 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:21:43 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	***pipe_alloc(char **input)
 	len = 1;
 	while (input[++i])
 	{
-		if (!strcmp(input[i], "|"))
+		if (!ft_strcmp(input[i], "|"))
 			len += 1;
 	}
 	if (!(pipe_cmd = triple_alloc(len)))

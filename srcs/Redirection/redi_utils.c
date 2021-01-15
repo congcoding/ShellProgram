@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:57:43 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 16:02:28 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:22:36 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	std_reset(int fd[2], int backup[2])
 
 int		is_cmd(char *cmd)
 {
-	if (!strcmp(cmd, "echo") || !strcmp(cmd, "cd")
-		|| !strcmp(cmd, "pwd") || !strcmp(cmd, "export")
-		|| !strcmp(cmd, "unset") || !strcmp(cmd, "env")
-		|| !strcmp(cmd, "exit"))
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit"))
 		return (TRUE);
 	else
 	{

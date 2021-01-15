@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:08:14 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:17:37 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:19:56 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		shell(char **input)
 	start = 0;
 	while (input[++i])
 	{
-		if (!strcmp(input[i], ";"))
+		if (!ft_strcmp(input[i], ";"))
 		{
 			g_cmd = ft_strsndup(input + start, i - start);
 			start = i + 1;

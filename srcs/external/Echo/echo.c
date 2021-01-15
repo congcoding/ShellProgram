@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:48:37 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/15 12:52:00 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:16:29 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	echo(int argc, char *argv[], char *envp[])
 		if (option_check(argv[i]))
 			option = TRUE;
 		else
-			break;
+			break ;
 		i++;
 	}
 	while (i < argc - 1)

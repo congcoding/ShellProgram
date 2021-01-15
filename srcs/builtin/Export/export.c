@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:46:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/15 13:43:20 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:17:19 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**ordering(char **envp)
 	char	*temp;
 	int		i;
 	int		j;
-	
+
 	if (!(order_env = ft_strsdup(envp)))
 		return (NULL);
 	i = -1;
@@ -38,7 +38,7 @@ static char	**ordering(char **envp)
 	return (order_env);
 }
 
-static int	declare()
+static int	declare(void)
 {
 	char	**order_env;
 	char	**key_value;

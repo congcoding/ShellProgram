@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:58:16 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 14:56:56 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:22:03 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	rediretioning(char *file, char *flag, int fd[2])
 {
-	if (!strcmp(file, "<") || !strcmp(file, ">")
-		|| !strcmp(file, ">>") || !strcmp(file, "|")
-		|| !strcmp(file, ";"))
+	if (!ft_strcmp(file, "<") || !ft_strcmp(file, ">")
+		|| !ft_strcmp(file, ">>") || !ft_strcmp(file, "|")
+		|| !ft_strcmp(file, ";"))
 	{
 		ft_write(2, "syntax error near unexpected token ");
 		ft_write_n(2, file);
@@ -53,8 +53,8 @@ char		**redirection(char **cmd, int fd[2])
 	j = -1;
 	while (cmd[++i])
 	{
-		if (!strcmp(cmd[i], "<") || !strcmp(cmd[i], ">")
-			|| !strcmp(cmd[i], ">>"))
+		if (!ft_strcmp(cmd[i], "<") || !ft_strcmp(cmd[i], ">")
+			|| !ft_strcmp(cmd[i], ">>"))
 		{
 			++i;
 			rediretioning(cmd[i], cmd[i - 1], fd);

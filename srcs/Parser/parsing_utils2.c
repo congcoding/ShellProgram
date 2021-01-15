@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:53:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 21:08:51 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:19:51 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**cutting(char *str, int *cut, int len)
 	while (++i < len)
 	{
 		temp = ft_stredup(str, cut[i], cut[i + 1]);
-		if (strcmp(temp, ""))
+		if (ft_strcmp(temp, ""))
 			strs[++j] = ft_strdup(temp);
 		cut[i + 1]++;
 		free(temp);

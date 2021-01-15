@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:17:28 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 17:34:26 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/15 14:20:14 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			input_check(char **input)
 	{
 		if (!redi_check(input))
 			return (FALSE);
-		if (!strcmp(*input, ";") || !strcmp(*input, "|"))
+		if (!ft_strcmp(*input, ";") || !ft_strcmp(*input, "|"))
 			if (!is_token_check(input))
 				return (FALSE);
 		input++;
