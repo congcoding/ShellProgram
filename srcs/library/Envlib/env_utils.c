@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:38:44 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 17:00:32 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 14:17:51 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,29 @@ char		**key_value_parse(char *env_string)
 	}
 	key_value[2] = NULL;
 	return (key_value);
+}
+
+char		*init_shlvl(char *old_env)
+{
+	char	*env;
+	char	**key_value;
+	int		num;
+	char	*lvl;
+
+	if (!(key_value = key_value_parse(old_env)))
+		return (NULL);
+	if (!ft_strcmp(key_value[0], "SHLVL"))
+	{
+		num = ft_atoi(key_value[1]);
+		lvl = ft_itoa(num + 1);
+	}
+	else
+	{
+		ft_double_free(key_value);
+		return (NULL);
+	}
+	env = ft_strappend("SHLVL=", lvl);
+	ft_double_free(key_value);
+	ft_single_free(lvl);
+	return (env);
 }

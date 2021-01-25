@@ -6,21 +6,65 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/25 13:52:04 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 15:12:15 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		prompt(char **line)
+int		line_append(char **line, char c)
 {
-	int flag;
+	char	*new_line;
+	int		len;
 
-	ft_write(1, "$> ");
-	if ((flag = get_next_line(0, line)) == 0)
+	len = ft_strlen(*line);
+	if (!(new_line = malloc(sizeof(char) * (len + 2))))
+		return (0);
+	ft_strcpy(new_line, *line);
+	new_line[len] = c;
+	new_line[len + 1] = 0;
+	if (*line != NULL)
+		free(*line);
+	*line = new_line;
+	return (1);
+}
+
+int		eof_input(char *line)
+{
+	if (line == NULL)
 	{
 		ft_write_n(1, "exit");
 		ft_exit();
 	}
+	return (FALSE);
+}
+
+char	*read_line()
+{
+	char	*line;
+	char	buf;
+	int		flag;
+
+	line = NULL;
+	while ((flag = read(0, &buf, 1)) != -1)
+	{
+		if (flag == 0)
+			if (!eof_input(line))
+				continue;
+		if (buf != '\n')
+		{
+			line_append(&line, buf);
+			continue;
+		}
+		if (buf == '\n')
+			return (line);
+	}
+	return (NULL);
+}
+
+int		prompt(char **line)
+{
+	ft_write(1, "$> ");
+	*line = read_line();
 	return (0);
 }

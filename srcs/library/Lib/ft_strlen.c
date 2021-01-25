@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:25:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 13:25:37 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 15:06:48 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_strlen(char *str)
 
 	i = -1;
 	if (!str)
-		return (ERROR);
+		return (0);
 	while (str[++i])
 		;
 	return (i);

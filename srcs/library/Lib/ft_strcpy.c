@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:24:36 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/13 13:24:37 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 14:56:57 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		ft_strcpy(char *dest, char *src)
 {
 	int i;
 
+	if (!src)
+		return (0);
 	i = -1;
 	while (src[++i])
 		dest[i] = src[i];
