@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:12:42 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/15 12:14:25 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 14:04:55 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ char	**double_alloc(int len);
 char	***triple_alloc(int len);
 char	*ft_strappend(char *s1, char *s2);
 int		ft_isnum(int c);
+int		ft_atoi(const char *str);
 
 #endif
