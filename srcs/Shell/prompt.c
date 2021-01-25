@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jbeen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/25 15:12:15 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 20:23:39 by jbeen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		eof_input(char *line)
 	return (FALSE);
 }
 
-char	*read_line()
+char	*read_line(void)
 {
 	char	*line;
 	char	buf;
