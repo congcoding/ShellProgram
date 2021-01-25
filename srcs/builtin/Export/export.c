@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:46:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/25 20:44:21 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 20:57:39 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static int	valid_key(char *env_string)
 		ft_write(1, "export: `");
 		ft_write(1, env_string);
 		ft_write_n(1, "': not valid identifier");
+		g_last_ret = 1;
 		return (FALSE);
 	}
 	return (TRUE);
@@ -85,20 +86,25 @@ static int	valid_arg(char *env_string)
 
 int			export(char *argv[])
 {
+	int		error_flag;
 	int		i;
 
+	error_flag = 0;
 	i = 0;
 	if (ft_strslen(argv) == 1)
 		return (declare());
 	while (argv[++i])
 	{
 		if (!valid_key(argv[i]))
+		{
+			error_flag = 1;
 			continue;
+		}
 		if (!valid_arg(argv[i]))
 			continue;
 		if (set_env(g_envp, argv[i]) == FALSE)
 			add_env(&g_envp, argv[i]);
 	}
-	g_last_ret = 0;
+	g_last_ret = error_flag;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:13:38 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/15 14:23:24 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/25 20:51:02 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "lib.h"
 # include "parser.h"
 # include "env.h"
-# include "get_next_line.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>

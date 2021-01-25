@@ -31,8 +31,6 @@ SRC = 	./srcs/library/Lib/ft_alloc.c \
 		./srcs/external/Env/env.c \
 		./srcs/external/Pwd/pwd.c \
 		\
-		./srcs/gnl/get_next_line.c \
-		\
 		./srcs/Parser/argv_parsing.c \
 		./srcs/Parser/parsing.c \
 		./srcs/Parser/parsing_utils.c \
