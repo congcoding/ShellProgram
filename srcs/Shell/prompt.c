@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbeen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/25 20:23:39 by jbeen            ###   ########.fr       */
+/*   Updated: 2021/01/26 15:34:41 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*read_line(void)
 int		prompt(char **line)
 {
 	ft_write(1, "$> ");
-	*line = read_line();
+	if (!(*line = read_line()))
+		return (1);
 	return (0);
 }
