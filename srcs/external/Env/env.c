@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jbeen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:49:04 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 18:32:54 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/26 15:41:46 by jbeen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	valid_arg(char *env_string)
 
 static int	error_a(char *argv, char **env)
 {
-	ft_write(2, "env: '");
+	ft_write(2, "env: ");
 	ft_write(2, argv);
-	ft_write_n(2, "': No such file or directory");
+	ft_write_n(2, ": No such file or directory");
 	ft_double_free(env);
 	g_last_ret = 127;
 	return (0);
