@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:29 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 21:18:58 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/27 17:38:15 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ static void	handle(int signum)
 		}
 		if (g_pid == 1)
 		{
+			ft_write(1, "\b\b  ");
 			ft_write_n(1, "");
 			ft_write(1, "$> ");
 		}
 		else
-			ft_write_n(1, "\b\b");
+			ft_write_n(1, "\b\b  ");
 	}
 }
 

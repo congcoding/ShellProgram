@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:44:23 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/27 17:05:53 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	work2(void)
 	else if (!ft_strcmp(g_argv_p[0], "unset"))
 		unset(g_argv_p);
 	else if (!ft_strcmp(g_argv_p[0], "exit"))
-		ft_exit();
+		ft_exit(g_argv_p);
 	else
 		external(g_argv_p);
 }
