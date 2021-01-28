@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jbeen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:47:38 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/26 17:33:11 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/27 23:55:16 by jbeen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int		unset(char **argv)
 {
-	delete_env(&g_envp, argv[1]);
+	int	idx;
+
+	idx = 0;
+	while (argv[++idx])
+		delete_env(&g_envp, argv[idx]);
 	return (0);
 }
