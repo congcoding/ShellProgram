@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:51:51 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/28 14:23:03 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 15:54:59 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char		*argv_parsing(char *arg)
 
 	i = -1;
 	j = -1;
-	new = malloc(1000);
+	new = malloc(1024);
 	while (arg[++i])
 	{
 		if (is_out(arg, i))
