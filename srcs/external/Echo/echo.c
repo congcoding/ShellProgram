@@ -6,13 +6,13 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:48:37 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/28 14:45:08 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 14:59:59 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	option_check(char *argv)
+int		option_check(char *argv)
 {
 	int i;
 
@@ -48,7 +48,7 @@ void	printing(int *i, char *argv[], int argc)
 	*i = idx;
 }
 
-int	echo(int argc, char *argv[], char *envp[])
+int		echo(int argc, char *argv[], char *envp[])
 {
 	int	option;
 	int	i;

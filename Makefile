@@ -66,7 +66,7 @@ $(OBJS) : %.o : %.c
 clean :
 	rm -rf $(OBJS)
 
-fclean :
+fclean : clean
 	rm -rf $(NAME)
 
 re : fclean all

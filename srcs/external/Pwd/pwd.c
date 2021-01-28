@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:49:22 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/25 21:12:20 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 14:59:42 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ int	pwd(int argc, char *argv[], char *envp[])
 		g_last_ret = 2;
 		return (1);
 	}
-	/*
-	if (!(pwd = get_env(envp, "PWD")))
-	{
-		ft_write_n(2, "pwd allocation error");
-		g_last_ret = 2;
-		return (1);
-	}
-	*/
 	g_last_ret = 0;
 	ft_write_n(1, pwd);
 	return (0);
