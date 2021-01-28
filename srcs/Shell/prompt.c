@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/28 14:44:39 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 14:58:01 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*read_line(void)
 
 int		prompt(char **line)
 {
-	ft_write(1, "");
+	ft_write(1, "$> ");
 	if (!(*line = read_line()))
 		return (1);
 	return (0);
