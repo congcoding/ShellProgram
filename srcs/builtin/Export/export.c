@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:46:57 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/28 14:08:50 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 15:36:54 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ static int	declare(void)
 	while (order_env[++i])
 	{
 		key_value = key_value_parse(order_env[i]);
-		if (!ft_strcmp(key_value[0], "_"))
-		{
-			ft_double_free(key_value);
-			continue;
-		}
 		ft_write(1, "declare -x ");
 		ft_write(1, key_value[0]);
 		ft_write(1, "=\"");
