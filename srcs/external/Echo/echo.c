@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:48:37 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/28 14:59:59 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 15:01:41 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	printing(int *i, char *argv[], int argc)
 			continue;
 		}
 		if (!is_start)
-			ft_write(1, " ");	
+			ft_write(1, " ");
 		ft_write(1, argv[idx]);
 		idx++;
 		is_start = FALSE;
