@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:03:56 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/27 17:22:44 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 15:10:18 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	exit_code(char *argv[])
 
 int		ft_exit(char *argv[])
 {
+	ft_write_n(1, "exit");
 	if (argv)
 		exit_code(argv);
 	if (g_input)
