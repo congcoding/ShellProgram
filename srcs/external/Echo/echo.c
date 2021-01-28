@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:48:37 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/15 14:16:29 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 14:45:08 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,29 @@ int	option_check(char *argv)
 	return (TRUE);
 }
 
+void	printing(int *i, char *argv[], int argc)
+{
+	int	is_start;
+	int	idx;
+
+	is_start = TRUE;
+	idx = *i;
+	while (idx < argc)
+	{
+		if (!ft_strcmp(argv[idx], ""))
+		{
+			idx++;
+			continue;
+		}
+		if (!is_start)
+			ft_write(1, " ");	
+		ft_write(1, argv[idx]);
+		idx++;
+		is_start = FALSE;
+	}
+	*i = idx;
+}
+
 int	echo(int argc, char *argv[], char *envp[])
 {
 	int	option;
@@ -41,13 +64,7 @@ int	echo(int argc, char *argv[], char *envp[])
 			break ;
 		i++;
 	}
-	while (i < argc - 1)
-	{
-		ft_write(1, argv[i]);
-		ft_write(1, " ");
-		i++;
-	}
-	ft_write(1, argv[i]);
+	printing(&i, argv, argc);
 	if (!option)
 		ft_write_n(1, "");
 	g_last_ret = 0;
