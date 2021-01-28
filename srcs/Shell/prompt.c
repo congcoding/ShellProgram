@@ -6,7 +6,7 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:24 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/28 16:01:05 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/28 16:05:44 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ int		line_append(char **line, char c)
 int		eof_input(char *line)
 {
 	if (line == NULL)
-	{
-		ft_write(1, "\b\b  ");
 		ft_exit(NULL);
-	}	
+	ft_write(1, "\b\b  ");
 	return (FALSE);
 }
 
