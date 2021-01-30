@@ -6,55 +6,43 @@
 /*   By: seolim <seolim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:04:34 by seolim            #+#    #+#             */
-/*   Updated: 2021/01/27 17:05:53 by seolim           ###   ########.fr       */
+/*   Updated: 2021/01/30 10:17:10 by seolim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	path(char **argv)
+void external(char **argv, char **cmds)
 {
-	char	*temp;
-	char	*cmd;
-	char	*path_env;
-	char	**paths;
+	int		state;
 	int		i;
 
-	execve(argv[0], argv, g_envp);
-	path_env = get_env(g_envp, "PATH");
-	paths = ft_split(path_env, ':');
-	free(path_env);
-	i = -1;
-	while (paths[++i])
-	{
-		temp = ft_strappend(paths[i], "/");
-		cmd = ft_strappend(temp, argv[0]);
-		free(temp);
-		execve(cmd, argv, g_envp);
-		free(cmd);
-	}
-	ft_double_free(paths);
-	ft_write(2, g_argv_p[0]);
-	ft_write_n(2, " : command not found");
-	exit(127);
-}
-
-static void	external(char **argv)
-{
-	int state;
-
+	state = 0;
 	g_pid = fork();
 	if (g_pid == 0)
-		path(argv);
+	{
+		execve(argv[0], argv, g_envp);
+		i = -1;
+		while (cmds[++i])
+			execve(cmds[i], argv, g_envp);
+		ft_write(2, g_argv_p[0]);
+		ft_write_n(2, " : command not found");
+		exit(127);
+	}
 	else
 	{
 		wait(&state);
-		g_last_ret = state / 256;
+		if (state == 2)
+			g_last_ret = 130;
+		else if (state == 131)
+			g_last_ret = 131;
+		else
+			g_last_ret = state / 256;
 		g_pid = 1;
 	}
 }
 
-static void	work2(void)
+static int	internal()
 {
 	if (!ft_strcmp(g_argv_p[0], "echo"))
 		echo(ft_strslen(g_argv_p), g_argv_p, g_envp);
@@ -71,7 +59,45 @@ static void	work2(void)
 	else if (!ft_strcmp(g_argv_p[0], "exit"))
 		ft_exit(g_argv_p);
 	else
-		external(g_argv_p);
+		return (FALSE);
+	return (TRUE);
+}
+
+static char	**make_cmd(char *cmd)
+{
+	char	*path_env;
+	char	**paths;
+	char	*temp; 
+	char	**cmds;
+	int		i;
+	
+	path_env = get_env(g_envp, "PATH");
+	paths = ft_split(path_env, ':');
+	free(path_env);
+	if (!(cmds = malloc(sizeof(char *) * (ft_strslen(paths) + 1))))
+		return (NULL);
+	i = -1;
+	while (paths[++i])
+	{
+		temp = ft_strappend(paths[i], "/");
+		cmds[i] = ft_strappend(temp, cmd);
+		free(temp);
+	}
+	ft_double_free(paths);
+	cmds[i] = NULL;
+	return (cmds);
+}
+
+static void	work2(void)
+{
+	char	**cmds;	
+
+	if (!internal())
+	{
+		cmds = make_cmd(g_argv_p[0]);
+		external(g_argv_p, cmds);
+		ft_double_free(cmds);
+	}	
 }
 
 static int	single_work(char **argv, int fd[2], int backup[2])
